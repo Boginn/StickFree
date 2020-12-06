@@ -1,8 +1,7 @@
 export 'dart:io';
 export 'dart:convert';
 
-export 'functions.dart';
-export 'interface.dart';
+
 export 'Brain.dart';
 export 'rooms.dart';
 

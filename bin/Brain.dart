@@ -1,13 +1,24 @@
-import 'exports.dart';
 
 
+
+import 'dart:convert';
+import 'dart:io';
+import 'Stick.dart';
+import 'rooms.dart';
+
+import 'Strings.dart';
 
 class Brain {
 
   Stick stick = Stick();
-  Room currentRoom = firstRoom;
+  Room currentRoom;
 
-  Brain ();
+
+
+
+  Brain (this.currentRoom);
+
+
 
   void StickInterface() {
     String input = stdin.readLineSync(encoding: Encoding.getByName('utf-8')).toLowerCase().substring(0, 1);
@@ -17,8 +28,9 @@ class Brain {
       stick.PickUp(currentRoom);
     } else if (input == 'o') {
       currentRoom = stick.Open(currentRoom);
+      EnterRoom();
     } else if (input == 'u') {
-      stick.Use();
+      stick.Use(currentRoom);
     } else if (input == 'i') {
       stick.Inventory();
       // StickInterface();
@@ -43,7 +55,6 @@ class Brain {
 
   }
 
-
   void Intro() {
     print("You wake up to the sound of a familiar voice in your head.");
     stick.Prompt();
@@ -51,4 +62,7 @@ class Brain {
     stick.Prompt();
   }
 
+
+
 }
+
