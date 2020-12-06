@@ -1,6 +1,16 @@
 import 'exports.dart';
 
+Brain brain = Brain();
+
 void main() {
-  FirstRoom();
+  brain.Intro();
+  brain.EnterRoom();
+
+  while(true) {
+  brain.StickInterface();
+  }
+
 }
+
+
 
