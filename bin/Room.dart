@@ -1,6 +1,4 @@
 import 'exports.dart';
-// import 'items_enum.dart';
-// export 'items_enum.dart';
 
 class Room {
   List<Items> cloudedItems = [];
@@ -9,20 +7,24 @@ class Room {
   List<Room> visibleRooms = [];
   List<String> sVisibleRooms = [];
 
-  List<String> visibleRoomsAsStrings; //
-
   Rooms whichRoom;
   String sRoomLookAround;
   String sRoomDesc;
+  String sRoomDescExplored;
+  bool explored;
+  bool locked;
 
   Room({
     this.whichRoom,
     this.sRoomDesc,
+    this.sRoomDescExplored,
     this.sRoomLookAround,
     this.visibleRooms,
     this.sVisibleRooms,
     this.visibleItems,
     this.cloudedItems,
+    this.explored,
+    this.locked,
   });
 
   void addVisible() {
@@ -54,12 +56,13 @@ enum Rooms {
 // }
 
 enum Items {
+  KoolAid,
   RubberChicken,
   Triangle,
   Square,
   Circle,
   Flashlight,
   ChessManual,
-  KoolAid,
   Key,
+  Knob,
 }
