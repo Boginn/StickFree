@@ -5,21 +5,13 @@ import 'rooms.dart';
 
 Brain brain = Brain(firstRoom);
 
-
 void main() {
   Seed();
 
   brain.Intro();
   brain.EnterRoom();
 
-  while(true) {
-  brain.StickInterface();
+  while (true) {
+    brain.StickInterface();
   }
-
 }
-
-
-
-
-
-

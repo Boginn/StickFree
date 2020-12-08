@@ -4,56 +4,54 @@ class Room {
   List<Items> cloudedItems = [];
   List<Items> visibleItems = [];
 
-  List<Room> visibleRooms = [];
-  List<String> sVisibleRooms = [];
+  List<Room> availableRooms = [];
+  List<String> sAvailableRooms = [];
 
   Rooms whichRoom;
-  String sRoomLookAround;
-  String sRoomDesc;
-  String sRoomDescExplored;
+  Map roomDescriptions;
+  bool investigated;
   bool explored;
   bool locked;
+  bool onFire;
+  bool isLit;
 
   Room({
-    this.whichRoom,
-    this.sRoomDesc,
-    this.sRoomDescExplored,
-    this.sRoomLookAround,
-    this.visibleRooms,
-    this.sVisibleRooms,
-    this.visibleItems,
-    this.cloudedItems,
-    this.explored,
-    this.locked,
+    @required this.whichRoom,
+    @required this.roomDescriptions,
+    @required this.availableRooms,
+    @required this.sAvailableRooms,
+    @required this.visibleItems,
+    @required this.cloudedItems,
+    this.investigated = false,
+    this.explored = false,
+    this.locked = false,
+    this.onFire = false,
+    this.isLit = true,
   });
 
-  void addVisible() {
-    visibleItems.addAll(cloudedItems);
+  void revealCloudedItems() => visibleItems.addAll(cloudedItems);
+
+  void removePickedUpItem(Items item) => visibleItems.remove(item);
+
+  void toggleInvestigated(Room cRoom) {
+    cRoom.revealCloudedItems();
+    cRoom.investigated = true;
+    print(cRoom.roomDescriptions['FirstInvestigate']);
   }
-
-  void removeVisible(Items item) {
-    visibleItems.remove(item);
-  }
-
-
 }
 
 enum Rooms {
-                          Lobby, BalconyRoom,
-  ClosetRoom,SecondRoom, FirstRoom, LivingRoom, DarkRoom, ChessRoom,
-
+  FirstRoom,
+  Lobby,
+  SecondRoom,
+  SmokeRoom,
+  ClosetRoom,
+  LivingRoom,
+  BalconyRoom,
+  DarkRoom,
+  ChessRoom,
+  Exit,
 }
-
-// enum Rooms {
-//   FirstRoom,
-//   Lobby,
-//   SecondRoom,
-//   ClosetRoom,
-//   LivingRoom,
-//   BalconyRoom,
-//   DarkRoom,
-//   ChessRoom,
-// }
 
 enum Items {
   KoolAid,
@@ -65,4 +63,5 @@ enum Items {
   ChessManual,
   Key,
   Knob,
+  NotationBook,
 }

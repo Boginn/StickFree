@@ -1,123 +1,243 @@
-/*            Displays           */
+/*            Display           */
 void DisplayOptions() {
-  print('\t[L] Look Around');
-  print('\t[P] Pick Up');
-  print('\t[O] Open');
-  print('\t[U] Use');
-  print('\t[I] Inventory');
-  print('\t[Q] Quit');
+  print('\t[L] Look Around\t\t[O] Open');
+  print('\t[P] Pick Up\t\t\t[U] Use');
+  print('\t[I] Inventory\t\t[Q] Quit');
 }
 
+String sIntro = 'You wake up to the sound of a familiar voice in your head.%'
+    '“Why are you running? Don\'t you want to be immortal?.”\n\“There is no point in trying to escape... but I suppose it could be a fun game.”\n\“When you realize your efforts are futile, just reach into your pocket, drink the kool-aid and claim your IMMORTALITY!”';
 
 /*            Items           */
-String sNoUse = 'That has no possible use here!';
 
-String sExamineKoolAid = 'It\'s the kool-aid. Everyone except you consumed their kool-aid.';
-String sExamineRubberChicken = 'It\'s a rubber chicken with a pulley in the middle.';
+/*Examine*/
+String sExamineKoolAid =
+    'It\'s the kool-aid. Everyone consumed their kool-aid except you.';
+String sExamineRubberChicken =
+    'It\'s a rubber chicken with a pulley in the middle. Hmm.';
 String sExamineTriangle = 'It\'s a perfect triangle.';
 String sExamineSquare = 'It\'s a perfect square.';
 String sExamineCircle = 'It\'s a perfect circle.';
 String sExamineFlashlight = 'Standard issue. Batteries included.';
-String sExamineChessManual = 'A book of romantic chess games.';
+String sExamineChessManual =
+    'A book of romantic chess games. You could try reading it.';
 String sExamineKey = 'It\'s a single key on a chain.';
 String sExamineKnob = 'Looks like a doorknob that fell off.';
+String sExamineNotationBook =
+    'It is a high quality book used to jot down chess games. A pen is handily attached.\nThe first two lines read: 20. Ke2 Na6, 21. Nxg7+ Kd8. The rest of the book is empty.';
 
+/*Use*/
+String sNoUse = 'That has no possible use here!';
+String sItemsAvailable =
+    'There might be something around here I could pick up and use.';
+
+String sUseKoolAid = 'You drink the KoolAid. Sweet dreams...';
+String sUseKoolAidCorrect =
+    'You poor the KoolAid on the fire patch. Flames be doused, you\'ve done it!';
+
+String sIsFlashlight = 'Good thing you\'re flashlight is turned on.';
 String sUseFlashlightOn = 'You turn on the flashlight. It works. Sweet.';
 String sUseFlashlightOff = 'You turn the flashlight off. Pity.';
-String sUseChessManual = 'You open the book on the bookmark. It\'s an index of famous old chess games.';
-String sUseKoolAid = 'You drink the kool-aid. Sweet dreams...';
-String sUseKey = 'The key doesnt fit in any lock here.';
 
-String sUseRubberChickenCorrect = 'You slap the rubber chicken with a pulley in the middle on the wire and slide to safety';
-String sUseTriangleCorrect = '';
-String sUseSquareCorrect = '';
-String sUseCircleCorrect = '';
-String sKeyCorrect = sOpenBalcony;
+String sUseKey = 'The key does\'nt fit in any lock here.';
+String sKeyCorrect = 'The key fits in the balcony door. It unlocks.';
+
+String sUseChessManual =
+    'You open the book on the bookmark. It\'s an index of famous old chess games.';
+
+String sNoContinuation =
+    'I would\'nt know what to write, I don\'t have any chess games memorized!';
+String sUseNotationBook =
+    '$sExamineNotationBook\nYou try to write to the notebook with the pen but nothing happens. Nothing appears on the page.';
+String sUseNotationBookAlmostCorrect =
+    'As you begin to write down the continuation from your memory, the voice in your head bellows loudly:\n“Wrong, MORTAL!“%Whatever you wrote in the book is erased.';
+String sUseNotationBookCorrect =
+    'As you write down the continuation from your memory, the pieces on the over sized chess board move in correspondence and the voice in your head speaks:\n“Yes, become IMMORTAL!“% With the final move annotated the chess board disappears, as if it was a hologram, leaving a circle circle on the floor.';
+
+String sUseRubberChickenCorrect =
+    'You slap the rubber chicken with a pulley in the middle on the wire and slide to safety.';
+
+String sUseTriangleCorrect = 'You insert the triangle into the triangle shape.';
+
+String sUseSquareCorrect = 'You insert the square into the square shape.';
+
+String sUseCircleCorrect = 'You insert the circle into the circle shape.';
+
 String sKnobCorrect = 'You fit the knob on the door. Seems to work.';
 
-
-
 /*            Actions           */
-String sPickUp = 'These are the items you see. What would you like to pick up?';
+String sPickUp = 'What would you like to pick up?';
 String sPickUpNothing = 'You don\'t see anything worth picking up.';
 String sOpen = 'What would you like to open?';
 String sInventory = 'You check your pockets. Select something to examine it.';
 String sCancelInventory = 'You stop rummaging in your pockets.';
-String sLookAroundNothing = 'You\'ve already had a look at this room. Nothing changed.';
+String sLookAroundNothing = 'You\'ve already had a look. Nothing changed.';
 
-String sYouWin = 'You escaped, you are stick free. The voice is gone from your head.';
+String sCantSee = 'You can\'t see what you\'re doing.';
+String sCantExit = 'It\'s further down than you can see. Better not jump.';
+String sFire = 'You can\'t, there\'s a fire!';
+
+String sYouWin =
+    'You escaped, you are stick free. The voice is gone from your head.';
 String sGameOver = 'Game Over.';
 
-
 /*            FirstRoom           */
-String sDescFirstRoom = "You're in a well lit room. Disturbing paintings line the walls.\nYou note that there are three doors.";
-String sDescFirstRoomExplored = "You\'re back in the first room.";
-String sLookAroundFirstRoom = "Besides the art and three doors there is a rubber chicken with a pulley in the middle lying on the floor. \nOne of doors has sign above it that says 'Lobby'.";
-
-String sOpenLobby = 'You insert the ITEMS into their slots and the door opens.';
-String sOpenLobbyLocked = 'The door is locked. You see three slots of some sort edged in the door.';
+Map firstRoomDescriptions = {
+  'FirstExplore':
+      'You get up in a well lit room. Disturbing paintings line the walls. One of them depicts a stick figure at the bottom of a hill and a huge rolling black ball at the top of it.\nYou note that there are three doors.',
+  'Explored': "You\'re back in the room you woke up in.",
+  'FirstInvestigate':
+      "Besides the art and three doors there is a rubber chicken with a pulley in the middle lying on the floor. \nOne of doors has sign above it that says 'Lobby'.",
+  'Investigated':
+      'There is a rubber chicken with a pulley in the middle for some reason on the floor.\nIt\'s the room you woke up in. There are three doors.',
+};
+String sOpenLobby = 'The door to the lobby opens!';
+String sOpenLobbyLocked =
+    'The door is locked. You see three slots edged in the door. They are triangle, square and circle shaped.\nIt would remind you of your childhood puzzles if you could remember your childhood...';
 
 /*            Lobby           */
-String sDescLobbyRoom = 'You are in the lobby. The door out is open.';
-String sDescLobbyRoomExplored = 'It\'s the lobby.';
-String sLookAroundLobby = 'Past the door is a chasm. It would seem you are very high up. There is a wire hanging from the door that goes down to the ground.';
+Map lobbyRoomDescriptions = {
+  'FirstExplore':
+      'You step into what is supposedly the lobby. It\'s an empty room besides the open door on the opposite wall.',
+  'Explored': 'It\'s the lobby.',
+  'FirstInvestigate':
+      'Past the open door is a chasm. It would seem you are very high up. There is a wire hanging from the door that goes down to the ground.',
+  'Investigated':
+      'There is a chasm before you and a wire hanging from the door. Perhaps you could slide to the other side?',
+};
 
 /*            SecondRoom           */
-String sDescSecondRoom = 'You enter another room. It looks pretty much the same as the one you woke up in.';
-String sDescSecondRoomExplored = 'It\'s the second room that looks like the first room.';
-String sLookAroundSecondRoom = 'You spot a single key on a chain next to a triangle shaped... triangle. There is also another door to the left.';
+Map secondRoomDescriptions = {
+  'FirstExplore':
+      'You enter a room. It looks pretty much the same as the one you woke up in.',
+  'Explored':
+      'It\'s the room that looks very similar to the room you woke up in.',
+  'FirstInvestigate':
+      'You spot a single key on a chain next to a triangle shaped... triangle.\nThere are three doors in this room including the one you came through.',
+  'Investigated': 'There are three doors.',
+};
+
+/*            SmokeRoom           */
+Map smokeRoomDescriptions = {
+  'FirstExplore':
+      'Oh no! There\'s a small fire patch in the middle of the room!',
+  'Explored': 'It\'s the room with the fire. It\'s slowly burning.',
+  'FirstInvestigate':
+      'It looks like a burning cigarette is the source of the fire. There is a lot of smoke but you can see a notebook in the corner.',
+  'Investigated': 'There\'s a fire burning!',
+};
 
 /*            ClosetRoom           */
-String sDescClosetRoom = "It's a poorly ventilated and very small closet.";
-String sDescClosetRoomExplored = "It's still a poorly ventilated and very small closet.";
-String sLookAroundClosetRoom = 'There is nothing in here except a table with a flashlight lying on top of it.';
+Map closetRoomDescriptions = {
+  'FirstExplore': "It's a poorly ventilated and very small closet.",
+  'Explored': "It's still a poorly ventilated and very small closet.",
+  'FirstInvestigate':
+      'There is nothing in here except a table with a flashlight lying on top of it.',
+  'Investigated': 'It\'s probably a flashlight storage.',
+};
 
 /*            LivingRoom           */
-String sDescLivingRoom = "This must be the living room. There is a fireplace burning and comfy furniture. There's another door to the right and a door to the balcony.";
-String sDescLivingRoomExplored = 'You\'re back in the living room.';
-String sLookAroundLivingRoom = 'You look around and notice a book on a table.';
-
-String sOpenBalcony = 'The key fits. You open the door.';
-String sOpenBalconyLocked  = "It's locked.";
+Map livingRoomDescriptions = {
+  'FirstExplore':
+      "This must be the living room. There is comfy, but regal, furniture surrounding a burning fireplace.\nThere's another door to the right and a door to the balcony.",
+  'Explored': 'You\'re back in the living room.',
+  'FirstInvestigate': 'You notice an interesting book on a table.',
+  'Investigated':
+      'There\'s a book on the table. There are three doors. One goes to the balcony.',
+};
+String sOpenBalconyLocked = "It's locked.";
 
 /*            DarkRoom           */
-String sDescDarkRoom = 'You step into darkness.';
-String sDescDarkRoomExplored = "It\'s inky black.";
-String sDescDarkRoomExploredLight = "It\'s inky black.";
-String sLookAroundDarkRoom = "It's dark. You can\'t see a thing.";
-String sLookAroundDarkRoomLight = 'Now that the flashlight is on you can see that you are in a hallway. There is a door at the end of the hallway.';
+Map darkRoomDescriptions = {
+  'FirstExplore': 'You step into darkness.',
+  'Explored': "It\'s the dark room.",
+  'FirstInvestigate':
+      'Since the flashlight is on you can see that you are in a hallway. There is a door at the end of the hallway.',
+  'Investigated': 'There\'s nothing in this inky black room except the doors.',
+};
 
 /*            BalconyRoom           */
-String sDescBalconyRoom = "You step onto the balcony. The view isn\'t much since the sun is down but you get a sense that you're far above see level.";
-String sDescBalconyRoomExplored = 'You\'re back on the balcony';
-String sLookAroundBalconyRoom = "There\'s a square on the balcony. Literally.";
+Map balconyRoomDescriptions = {
+  'FirstExplore':
+      "You step onto the balcony. The view isn\'t much since the sun is down but you get a sense that you're far above sea level.",
+  'Explored': 'You\'re back on the balcony',
+  'FirstInvestigate':
+      "There\'s a square on the balcony. Literally. Also there's a knob.",
+  'Investigated':
+      'It\'s exactly the kind of balcony where you would find squares and knobs, actually.',
+};
+String sOpenChessRoomLocked = 'The door does\'nt even have a doorknob.';
 
 /*            ChessRoom           */
-String sDescChessRoom = 'You enter a large hall featuring an over sized chess board.';
-String sDescChessRoomExplored = "It\'s the hall with the chess board.";
-String sLookAroundChessRoom = 'You look at the position of the chess pieces.';
+Map chessRoomDescriptions = {
+  'FirstExplore':
+      'The doorknob does the trick, it opens the door.\nYou enter a large hall featuring an over sized chess board.',
+  'Explored': 'You are in the hall with the chess board.',
+  'FirstInvestigate':
+      'The chess pieces are about the height of yourself. The room has a loud echo.',
+  'Investigated':
+      'It\'s the hall with the over sized chess board. The echo is overbearing.',
+};
 
+/*            ChessManual           */
+List<Map> ChessManualEntries = [
+  ChessManualEntry01,
+  ChessManualEntry02,
+  ChessManualEntry03,
+  ChessManualEntry04,
+  ChessManualEntry05,
+  ChessManualEntry06,
+];
+Map ChessManualEntry01 = {
+  'Index': 'Mikhail Botvinnik vs. José Raul Capablanca, Rotterdam 1938',
+  'Content':
+      'This game was played in a tournament in 1938, featuring the strongest chess players of the time. \n...37. Kh4 Qe4+ \n38. Kxh5 Qe2+ \n39. Kh4 Qe4+ \n40. g4 Qe1+ \n41. Kh5'
+};
+Map ChessManualEntry02 = {
+  'Index': 'Gersz Rotlewi vs. Akiba Rubinstein, Lodz 1907',
+  'Content':
+      'It features a brilliant queen and rook sacrifice by Rubinstein to force mate. \n...23. gxh4 Rd2!!, \n24. Qxd2 Bxe4+ \n25. Qg2 Rh3!'
+};
+Map ChessManualEntry03 = {
+  'Index': 'Adolf Anderssen vs. Jean Dufresne, 1852 (The EVERGREEN Game)',
+  'Content':
+      'An informal game. Although defensive resources for Black have since been found, Anderssen\'s combination with the White pieces remains much admired. \n...20. Rxe7+! Nxe7?, \n21. Qxd7+!! Kxd7 \n22. Bf5+ Ke8, \n23. Bd7+ Kf8, \n24. Bxe7#'
+};
+Map ChessManualEntry04 = {
+  'Index': 'Paul Morphy vs. Duke Karl/Count Isouard, Paris 1858',
+  'Content':
+      'What chess player can fail to smile at \n...10.Nxb5!, \n13.Rxd7!, \n16.Qb8+!!?'
+};
+Map ChessManualEntry05 = {
+  'Index': 'Adolf Anderssen vs. Lionel Kieseritzky, 1851 (The IMMORTAL Game)',
+  'Content':
+      'White sacrificed a queen, two rooks and a bishop to mate Black with only three pieces - a masterpiece by Anderssen and one of the most famous chess games of all time. \n...20. Ke2 Na6, \n21. Nxg7+ Kd8, \n22. Qf6+! Nxf6, \n23. Be7#'
+};
+Map ChessManualEntry06 = {
+  'Index': 'McDonnell vs. La Bourdonnais, 1834',
+  'Content':
+      'This was a rare occasion where a defensive game is celebrated as brilliancy. Euwe demonstrates an excellent counter-attack. Max Euwe\'s prize-winning effort against Geller from the famous Zurich 1953 tournament has more than stood the test of time. \n...32. Qc4 Qe1! \n33. Rc1 d2 \n34. Qc5 Rg8 \n35. Rd1 e3, \n36. Qc3 Qxd1! \n37. Rxd1 e2'
+};
 
 /*            Art           */
 String ArtTitleScreen = "\n"
     "                                                        "
-"\n      @@@%     *@@,                  *@     @(    @@"
-"\n      @(  @@ @@@   @@                 @@     @@   (@"
-"\n     @@       *%   @@             @@@, @@@@@@@@@ %@@"
-"\n     @@@   @@@( @@@               (@(  @     @@@@"
-"\n    @@@@@@@@@@@@@@@@@@@            @(  @     @."
-"\n    @@@@@@@@@@@@  @@@@@          @@      @ @."
-"\n     @@@@@@-O-@@@@@@@@@    (@@@@@@@@@@@@@@@@@(@@@@@@@@("
-"\n      %%%%%%@@             (@@,,,,,,,,,,,,,,,@@@,@    *@("
-"\n         @@                (@@                  (@  @, @@"
-"\n       @@@@@@              (@@@)@@@@@@@@@@@      @( ,@  @"
-"\n      @  @@  @             (@@@ K O O L @@@@     @   (@ (@"
-"\n      @  @@   @            (@@@@@@  A I D @@@    @   (@ %@"
-"\n      @  @@    @           (@@@@@@@@@@@@@(@@@@   @   (@  @"
-"\n         @@                (@@                   @   @   @"
-"\n         @@                (@@                  @ @@(  @@"
-"\n        @  @               (@@@@@@@@@@@@@@@@@@@@@@  ,,@@%"
-"\n       @@   @@             (((((((((((((((((((((()@("
-"\n                           (@@@@@@@@@@@@@@@@@@@@@@"
-"\n                                                  "
-;
+    "\n      @@@%     *@@,                  *@     @(    @@"
+    "\n      @(  @@ @@@   @@                 @@     @@   (@"
+    "\n     @@       *%   @@             @@@, @@@@@@@@@ %@@"
+    "\n     @@@   @@@( @@@               (@(  @     @@@@"
+    "\n    @@@@@@@@@@@@@@@@@@@            @(  @     @."
+    "\n    @@@@@@@@@@@@  @@@@@          @@      @ @."
+    "\n     @@@@@@-O-@@@@@@@@@    (@@@@@@@@@@@@@@@@@(@@@@@@@@("
+    "\n      %%%%%%@@             (@@,,,,,,,,,,,,,,,@@@,@    *@("
+    "\n         @@                (@@                  (@  @, @@"
+    "\n       @@@@@@              (@@@)@@@@@@@@@@@      @( ,@  @"
+    "\n      @  @@  @             (@@@ K O O L @@@@     @   (@ (@"
+    "\n      @  @@   @            (@@@@@@  A I D @@@    @   (@ %@"
+    "\n      @  @@    @           (@@@@@@@@@@@@@(@@@@   @   (@  @"
+    "\n         @@                (@@                   @   @   @"
+    "\n         @@                (@@                  @ @@(  @@"
+    "\n        @  @               (@@@@@@@@@@@@@@@@@@@@@@  ,,@@%"
+    "\n       @@   @@             (((((((((((((((((((((()@("
+    "\n                           (@@@@@@@@@@@@@@@@@@@@@@"
+    "\n                                                  ";

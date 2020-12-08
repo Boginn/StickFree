@@ -1,6 +1,3 @@
-
-
-
 import 'dart:convert';
 import 'dart:io';
 import 'Stick.dart';
@@ -10,22 +7,17 @@ import 'functions.dart';
 import 'Strings.dart';
 
 class Brain {
-
   Stick stick = Stick();
   Room currentRoom;
 
-
-
-
-  Brain (this.currentRoom);
-
-
+  Brain(this.currentRoom);
 
   void StickInterface() {
-    String input = stdin.readLineSync(encoding: Encoding.getByName('utf-8')).toLowerCase();
+    String input =
+        stdin.readLineSync(encoding: Encoding.getByName('utf-8')).toLowerCase();
     if (input == '') {
     } else if (input.substring(0, 1) == 'l') {
-      stick.LookAround(currentRoom);
+      stick.Investigate(currentRoom);
     } else if (input.substring(0, 1) == 'p') {
       stick.PickUp(currentRoom);
       DisplayOptions();
@@ -33,10 +25,10 @@ class Brain {
       var sameRoom = currentRoom;
       currentRoom = stick.Open(currentRoom);
       // Check if still in the same room
-      if(sameRoom==currentRoom) {
+      if (sameRoom == currentRoom) {
         DisplayOptions();
       } else {
-      EnterRoom();
+        EnterRoom();
       }
     } else if (input.substring(0, 1) == 'u') {
       stick.Use(currentRoom);
@@ -47,28 +39,29 @@ class Brain {
     }
   }
 
-
-  void EnterRoom () {
-    if(!(currentRoom.explored)) {
-      print(currentRoom.sRoomDesc);
+  void EnterRoom() {
+    // Check if explored
+    if (!(currentRoom.explored)) {
+      print(currentRoom.roomDescriptions['FirstExplore']);
+      // Check if room is dark and if flashlight is on
+      if (!currentRoom.isLit && stick.isFlashlight) {
+        print(sIsFlashlight);
+      }
     } else {
-      print(currentRoom.sRoomDescExplored);
+      print(currentRoom.roomDescriptions['Explored']);
+      if (!currentRoom.isLit && stick.isFlashlight) {
+        print(sIsFlashlight);
+      }
     }
+    // Toggle explored
+    currentRoom.explored = true;
     DisplayOptions();
   }
 
   void Intro() {
     print(ArtTitleScreen);
-    Prompt();
-    print('You wake up to the sound of a familiar voice in your head.');
-    Prompt();
-    print('“Why are you running? You really should drink the kool-aid.”\n\“There is no point in trying to escape... but I suppose it could be a fun game.”\n\“When you realize your efforts are futile, just reach into your pocket and drink the kool-aid.”');
-    Prompt();
+    Prompt('');
+    Prompt(sIntro.split('%').first);
+    Prompt(sIntro.split('%').last);
   }
-
-
-
-
-
 }
-
