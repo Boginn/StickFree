@@ -1,6 +1,6 @@
 export 'dart:io';
 export 'dart:convert';
-export 'package:meta/meta.dart';
+
 export 'Brain.dart';
 export 'rooms.dart';
 

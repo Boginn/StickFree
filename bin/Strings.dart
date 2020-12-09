@@ -1,15 +1,58 @@
 /*            Display           */
+String sTitleScreen = "\n"
+    "                                                        "
+    "\n      @@@%     *@@,                  *@     @(    @@"
+    "\n      @(  @@ @@@   @@                 @@     @@   (@"
+    "\n     @@       *%   @@             @@@, @@@@@@@@@ %@@"
+    "\n     @@@   @@@( @@@               (@(  @     @@@@"
+    "\n    @@@@@@@@@@@@@@@@@@@            @(  @     @."
+    "\n    @@@@@@@@@@@@  @@@@@          @@      @ @."
+    "\n     @@@@@@-O-@@@@@@@@@    (@@@@@@@@@@@@@@@@@(@@@@@@@@("
+    "\n      %%%%%%@@             (@@,,,,,,,,,,,,,,,@@@,@    *@("
+    "\n         @@                (@@                  (@  @, @@"
+    "\n       @@@@@@              (@@@)@@@@@@@@@@@      @( ,@  @"
+    "\n      @  @@  @             (@@@ K O O L @@@@     @   (@ (@"
+    "\n      @  @@   @            (@@@@@@  A I D @@@    @   (@ %@"
+    "\n      @  @@    @           (@@@@@@@@@@@@@(@@@@   @   (@  @"
+    "\n         @@                (@@                   @   @   @"
+    "\n         @@                (@@                  @ @@(  @@"
+    "\n        @  @               (@@@@@@@@@@@@@@@@@@@@@@  ,,@@%"
+    "\n       @@   @@             (((((((((((((((((((((()@("
+    "\n                           (@@@@@@@@@@@@@@@@@@@@@@"
+    "\n                                                  ";
+
 void DisplayOptions() {
   print('\t[L] Look Around\t\t[O] Open');
   print('\t[P] Pick Up\t\t\t[U] Use');
-  print('\t[I] Inventory\t\t[Q] Quit');
+  print('\t[E] Examine\t\t\t[Q] Quit');
 }
 
-String sIntro = 'You wake up to the sound of a familiar voice in your head.%'
-    '“Why are you running? Don\'t you want to be immortal?.”\n\“There is no point in trying to escape... but I suppose it could be a fun game.”\n\“When you realize your efforts are futile, just reach into your pocket, drink the kool-aid and claim your IMMORTALITY!”';
+void DisplayYesNo() {
+  print('\t[Y/N]');
+}
+
+void DisplayMap() {
+  print("\n         +-------+"
+      "\n         |       |             +----+                  +-------------+"
+      "\n         |       |             |    |                  |             |"
+      "\n         |       |             |    |                  |             |"
+      "\n         +---^^--+             +-^^-+                  +---^^--------+"
+      "\n    +--+ +---vv------------+ +---vv---------------+ +------vv---------+"
+      "\n    |  <->                 | |                    | |                 |"
+      "\n    +----|                 <->                    <->                 |"
+      "\n    |                      | |                    | |              + +|"
+      "\n    +-K------------O------+ +---O------------L---+ |             +   |"
+      "\n     +-------------------+                          |              + +|"
+      "\n     |   +___________+   |                          |        +++      |"
+      "\n     |   |__|__|__|__|   <--I--M--M--O--R--T--A--L-->        +++      |"
+      "\n     |   |__|__|__|__|   <-------------------------->                 |"
+      "\n     |   |__|__|__|__|   |                          +-----------------+"
+      "\n     |   |__|__|__|__|   |  "
+      "\n     |   +¯¯¯¯¯¯¯¯¯¯¯+   |"
+      "\n     +--A------I------D--+");
+}
 
 /*            Items           */
-
 /*Examine*/
 String sExamineKoolAid =
     'It\'s the kool-aid. Everyone consumed their kool-aid except you.';
@@ -25,17 +68,18 @@ String sExamineKey = 'It\'s a single key on a chain.';
 String sExamineKnob = 'Looks like a doorknob that fell off.';
 String sExamineNotationBook =
     'It is a high quality book used to jot down chess games. A pen is handily attached.\nThe first two lines read: 20. Ke2 Na6, 21. Nxg7+ Kd8. The rest of the book is empty.';
+String sExamineUseMap = 'It\'s a map of this place.';
 
 /*Use*/
 String sNoUse = 'That has no possible use here!';
 String sItemsAvailable =
-    'There might be something around here I could pick up and use.';
+    'There might be something around here you could pick up and use.';
 
 String sUseKoolAid = 'You drink the KoolAid. Sweet dreams...';
 String sUseKoolAidCorrect =
-    'You poor the KoolAid on the fire patch. Flames be doused, you\'ve done it!';
+    'You pour the KoolAid on the fire patch. Flames be doused, you\'ve done it!';
 
-String sIsFlashlight = 'Good thing you\'re flashlight is turned on.';
+String sIsFlashlight = 'Good thing your flashlight is turned on.';
 String sUseFlashlightOn = 'You turn on the flashlight. It works. Sweet.';
 String sUseFlashlightOff = 'You turn the flashlight off. Pity.';
 
@@ -50,9 +94,9 @@ String sNoContinuation =
 String sUseNotationBook =
     '$sExamineNotationBook\nYou try to write to the notebook with the pen but nothing happens. Nothing appears on the page.';
 String sUseNotationBookAlmostCorrect =
-    'As you begin to write down the continuation from your memory, the voice in your head bellows loudly:\n“Wrong, MORTAL!“%Whatever you wrote in the book is erased.';
+    'As you begin to write down the continuation from your memory, the voice in your head bellows loudly:%Whatever you wrote in the book is erased.';
 String sUseNotationBookCorrect =
-    'As you write down the continuation from your memory, the pieces on the over sized chess board move in correspondence and the voice in your head speaks:\n“Yes, become IMMORTAL!“% With the final move annotated the chess board disappears, as if it was a hologram, leaving a circle circle on the floor.';
+    'As you write down the continuation from your memory, the pieces on the over sized chess board move in correspondence and the voice in your head speaks:% With the final move annotated the chess board disappears, as if it was a hologram, leaving a circle circle on the floor.';
 
 String sUseRubberChickenCorrect =
     'You slap the rubber chicken with a pulley in the middle on the wire and slide to safety.';
@@ -65,13 +109,14 @@ String sUseCircleCorrect = 'You insert the circle into the circle shape.';
 
 String sKnobCorrect = 'You fit the knob on the door. Seems to work.';
 
+String sUseClothCorrect =
+    'You wrap the cloth around the burning hot doorknob.\nYou should be able to open it now.';
+
 /*            Actions           */
 String sPickUp = 'What would you like to pick up?';
 String sPickUpNothing = 'You don\'t see anything worth picking up.';
 String sOpen = 'What would you like to open?';
 String sInventory = 'You check your pockets. Select something to examine it.';
-String sCancelInventory = 'You stop rummaging in your pockets.';
-String sLookAroundNothing = 'You\'ve already had a look. Nothing changed.';
 
 String sCantSee = 'You can\'t see what you\'re doing.';
 String sCantExit = 'It\'s further down than you can see. Better not jump.';
@@ -88,12 +133,11 @@ Map firstRoomDescriptions = {
   'Explored': "You\'re back in the room you woke up in.",
   'FirstInvestigate':
       "Besides the art and three doors there is a rubber chicken with a pulley in the middle lying on the floor. \nOne of doors has sign above it that says 'Lobby'.",
-  'Investigated':
-      'There is a rubber chicken with a pulley in the middle for some reason on the floor.\nIt\'s the room you woke up in. There are three doors.',
+  'Investigated': 'It\'s the room you woke up in. There are three doors.',
 };
-String sOpenLobby = 'The door to the lobby opens!';
+String sOpenLobby = 'The door to the lobby unlocks!';
 String sOpenLobbyLocked =
-    'The door is locked. You see three slots edged in the door. They are triangle, square and circle shaped.\nIt would remind you of your childhood puzzles if you could remember your childhood...';
+    'The door, marked \'Lobby\',is locked. You see three slots edged in the door. They are triangle, square and circle shaped.\nIt would remind you of your childhood puzzles if you could remember your childhood...';
 
 /*            Lobby           */
 Map lobbyRoomDescriptions = {
@@ -116,6 +160,8 @@ Map secondRoomDescriptions = {
       'You spot a single key on a chain next to a triangle shaped... triangle.\nThere are three doors in this room including the one you came through.',
   'Investigated': 'There are three doors.',
 };
+String sOpenSmokeLocked =
+    'Ouch! The doorknob is burning hot. If only you had mittens to protect your stick hands.';
 
 /*            SmokeRoom           */
 Map smokeRoomDescriptions = {
@@ -142,8 +188,7 @@ Map livingRoomDescriptions = {
       "This must be the living room. There is comfy, but regal, furniture surrounding a burning fireplace.\nThere's another door to the right and a door to the balcony.",
   'Explored': 'You\'re back in the living room.',
   'FirstInvestigate': 'You notice an interesting book on a table.',
-  'Investigated':
-      'There\'s a book on the table. There are three doors. One goes to the balcony.',
+  'Investigated': 'There are three doors. One goes to the balcony.',
 };
 String sOpenBalconyLocked = "It's locked.";
 
@@ -155,18 +200,18 @@ Map darkRoomDescriptions = {
       'Since the flashlight is on you can see that you are in a hallway. There is a door at the end of the hallway.',
   'Investigated': 'There\'s nothing in this inky black room except the doors.',
 };
+String sOpenChessRoomLocked = 'The door does\'nt even have a doorknob.';
 
 /*            BalconyRoom           */
 Map balconyRoomDescriptions = {
   'FirstExplore':
-      "You step onto the balcony. The view isn\'t much since the sun is down but you get a sense that you're far above sea level.",
+      "You step onto the balcony. It features a mighty gargoyle statue.\nThe view isn\'t much since the sun is down but you get a sense that you're far above sea level.",
   'Explored': 'You\'re back on the balcony',
   'FirstInvestigate':
       "There\'s a square on the balcony. Literally. Also there's a knob.",
   'Investigated':
       'It\'s exactly the kind of balcony where you would find squares and knobs, actually.',
 };
-String sOpenChessRoomLocked = 'The door does\'nt even have a doorknob.';
 
 /*            ChessRoom           */
 Map chessRoomDescriptions = {
@@ -178,6 +223,44 @@ Map chessRoomDescriptions = {
   'Investigated':
       'It\'s the hall with the over sized chess board. The echo is overbearing.',
 };
+
+/*            NPCs           */
+// List<String> familiarVoiceLines = [sFamIntroduce, sFamWrong, sFamRight];
+String sFamRight = '“Yes, become IMMORTAL!“';
+String sFamWrong = '“Wrong, MORTAL!“';
+String sFamIntroduce =
+    '“Why are you running? Don\'t you want to be immortal?.”\n\“There is no point in trying to escape... but I suppose it could be a fun game.”\n\“When you realize your efforts are futile, just reach into your pocket, drink the kool-aid and claim your IMMORTALITY!”';
+
+// List<String> gargoyleVoiceLines = [
+//   sGargIntroduce,
+//   sGargChessManual,
+//   sGargAbout,
+//   sGargGreeting,
+//
+// ];
+List<String> sGargAnswers = [
+  sGargAskAbout,
+  sGargAskChess,
+  sGargAskForSomething,
+  sGargAskStop
+];
+String sGargAskAbout = 'What is this place?';
+String sGargAskChess = 'What should I learn from this ChessManual?';
+String sGargAskForSomething = 'Can I have something?';
+String sGargAskStop = 'Never mind. I will go now.';
+
+String sGargIntroduce =
+    '“Oof, you there. The stick with the flashlight. Turn that off immediately and go away, I\'m trying to sleep.“';
+String sGargChess =
+    '“If you can\'t even remember the continuation for the immortal game itself then just copy it from the chess manual and write it down in the notation book.\nCertainly don\'t do it here. Go away.“';
+String sGargAbout =
+    '“It\'s a fancy place. It used to have plenty patrons. These days it only sees the infrequent square or a knob come by.\nI thought we would reach capacity with this whole immortality business but it seems like it\'s the opposite!“';
+String sGargMap = '“Okay. You can have this map.“';
+String sGargKoolAid = '“I do have way too much KoolAid. Here you go.“';
+String sGargGreeting = '“What?“';
+String sGargTurnItOff = 'Really dude. Please turn that off.';
+String sGargTurnItOffAgain =
+    '“Don\'t make me ask you again. Turn off the flash“';
 
 /*            ChessManual           */
 List<Map> ChessManualEntries = [
@@ -201,7 +284,7 @@ Map ChessManualEntry02 = {
 Map ChessManualEntry03 = {
   'Index': 'Adolf Anderssen vs. Jean Dufresne, 1852 (The EVERGREEN Game)',
   'Content':
-      'An informal game. Although defensive resources for Black have since been found, Anderssen\'s combination with the White pieces remains much admired. \n...20. Rxe7+! Nxe7?, \n21. Qxd7+!! Kxd7 \n22. Bf5+ Ke8, \n23. Bd7+ Kf8, \n24. Bxe7#'
+      'An informal game. Although defensive resources for Black have since been found, Anderssen\'s combination with the White pieces remains much admired. \n...20. Rxe7+! Nxe7?, \n21. Qxd7+!! Kxd7, \n22. Bf5+ Ke8, \n23. Bd7+ Kf8, \n24. Bxe7#'
 };
 Map ChessManualEntry04 = {
   'Index': 'Paul Morphy vs. Duke Karl/Count Isouard, Paris 1858',
@@ -218,26 +301,3 @@ Map ChessManualEntry06 = {
   'Content':
       'This was a rare occasion where a defensive game is celebrated as brilliancy. Euwe demonstrates an excellent counter-attack. Max Euwe\'s prize-winning effort against Geller from the famous Zurich 1953 tournament has more than stood the test of time. \n...32. Qc4 Qe1! \n33. Rc1 d2 \n34. Qc5 Rg8 \n35. Rd1 e3, \n36. Qc3 Qxd1! \n37. Rxd1 e2'
 };
-
-/*            Art           */
-String ArtTitleScreen = "\n"
-    "                                                        "
-    "\n      @@@%     *@@,                  *@     @(    @@"
-    "\n      @(  @@ @@@   @@                 @@     @@   (@"
-    "\n     @@       *%   @@             @@@, @@@@@@@@@ %@@"
-    "\n     @@@   @@@( @@@               (@(  @     @@@@"
-    "\n    @@@@@@@@@@@@@@@@@@@            @(  @     @."
-    "\n    @@@@@@@@@@@@  @@@@@          @@      @ @."
-    "\n     @@@@@@-O-@@@@@@@@@    (@@@@@@@@@@@@@@@@@(@@@@@@@@("
-    "\n      %%%%%%@@             (@@,,,,,,,,,,,,,,,@@@,@    *@("
-    "\n         @@                (@@                  (@  @, @@"
-    "\n       @@@@@@              (@@@)@@@@@@@@@@@      @( ,@  @"
-    "\n      @  @@  @             (@@@ K O O L @@@@     @   (@ (@"
-    "\n      @  @@   @            (@@@@@@  A I D @@@    @   (@ %@"
-    "\n      @  @@    @           (@@@@@@@@@@@@@(@@@@   @   (@  @"
-    "\n         @@                (@@                   @   @   @"
-    "\n         @@                (@@                  @ @@(  @@"
-    "\n        @  @               (@@@@@@@@@@@@@@@@@@@@@@  ,,@@%"
-    "\n       @@   @@             (((((((((((((((((((((()@("
-    "\n                           (@@@@@@@@@@@@@@@@@@@@@@"
-    "\n                                                  ";

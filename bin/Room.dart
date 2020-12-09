@@ -1,4 +1,4 @@
-import 'exports.dart';
+import 'package:meta/meta.dart';
 
 class Room {
   List<Items> cloudedItems = [];
@@ -12,7 +12,7 @@ class Room {
   bool investigated;
   bool explored;
   bool locked;
-  bool onFire;
+  bool isFire;
   bool isLit;
 
   Room({
@@ -25,7 +25,7 @@ class Room {
     this.investigated = false,
     this.explored = false,
     this.locked = false,
-    this.onFire = false,
+    this.isFire = false,
     this.isLit = true,
   });
 
@@ -64,4 +64,6 @@ enum Items {
   Key,
   Knob,
   NotationBook,
+  Map,
+  Cloth,
 }

@@ -1,6 +1,6 @@
 import 'Room.dart';
 import 'Strings.dart';
-import 'exports.dart';
+// import 'exports.dart';
 
 export 'Room.dart';
 
@@ -40,9 +40,6 @@ void Seed() {
   chessRoom.availableRooms.add(darkRoom); // 'The door back.',
   chessRoom.availableRooms.add(chessRoom); // 'Nothing, stay here',
 }
-
-// TODO adda npc til að tala við fyrir hints
-// TODO laga vinstri svo maður þurfi að snúa við
 
 Room firstRoom = Room(
   whichRoom: Rooms.FirstRoom,
@@ -95,7 +92,8 @@ Room smokeRoom = Room(
   ],
   visibleItems: [],
   cloudedItems: [Items.NotationBook],
-  onFire: true,
+  locked: true,
+  isFire: true,
 );
 
 Room closetRoom = Room(
@@ -160,7 +158,7 @@ Room chessRoom = Room(
     'Nothing, stay here', // Stay
   ],
   visibleItems: [],
-  cloudedItems: [],
+  cloudedItems: [Items.Cloth],
   locked: true,
 );
 
