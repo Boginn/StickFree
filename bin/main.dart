@@ -1,7 +1,5 @@
 import 'Brain.dart';
-import 'exports.dart';
-import 'functions.dart';
-import 'rooms.dart';
+import 'objects/RoomSeeds.dart';
 
 Brain brain = Brain(firstRoom);
 

@@ -1,11 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
-import 'Gargoyle.dart';
-import 'Stick.dart';
-import 'rooms.dart';
-import 'functions.dart';
+
+import 'objects/Gargoyle.dart';
+import 'objects/Stick.dart';
+import 'objects/RoomSeeds.dart';
 
 import 'Strings.dart';
+import 'functions.dart';
 
 class Brain {
   // Create player and NPCs
@@ -125,10 +126,10 @@ class Brain {
         } else if (counter == gargoyle.flashlightChances - 2) {
           gargoyle.say('“I will end you.“');
         } else if (counter == gargoyle.flashlightChances - 1) {
-          gargoyle.say(
-              '“If you say no one more time that is it!“\n“I will end you and your little game you\'re playing.“\n“Choose wisely.“');
+          gargoyle.say(sGargLastChance);
         } else if (counter == gargoyle.flashlightChances) {
           gargoyle.isFriendly = false;
+          stick.stickScore -= 666;
         } else {
           gargoyle.say(sGargTurnItOffAgain);
         }
@@ -140,7 +141,7 @@ class Brain {
   void gargoyleConversation() {
     // Check if gargoyle is friendly
     if (!gargoyle.isFriendly) {
-      gargoyle.say('“We\'re not friends. I have nothing to say to you.“');
+      gargoyle.say(sGargNotFriends);
     } else {
       gargoyle.say(sGargGreeting);
       while (true) {
@@ -159,21 +160,19 @@ class Brain {
           gargoyle.say(sGargChess);
         } else if (sGargAnswers[input] == sGargAskForSomething) {
           if (gargoyle.asks > 0) {
-            gargoyle.say(sGargMap);
+            gargoyle.say(sGargMap.toString().split('%').first);
             stick.inventory.add(Items.Map);
             gargoyle.inventory.remove(Items.Map);
-            Prompt('The gargoyle hands you a map. You put it in your pocket.');
+            Prompt(sGargMap.toString().split('%').last);
           } else {
             gargoyle.say(sGargKoolAid);
             if (!stick.inventory.contains(Items.KoolAid)) {
               stick.inventory.add(Items.KoolAid);
               gargoyle.inventory.remove(Items.KoolAid);
-              Prompt(
-                  'The gargoyle hands you some KoolAid. You put it in your pocket.');
+              Prompt(sKoolAidYesNo.toString().split('%').first);
               sGargAnswers.remove(sGargAskForSomething);
             } else {
-              gargoyle.say(
-                  '“Oh you already have some KoolAid there. I suppose you would\'nt be here if you\'d have gulped it...“');
+              gargoyle.say(sKoolAidYesNo.toString().split('%').last);
             }
           }
           gargoyle.asks--;

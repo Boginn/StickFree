@@ -22,7 +22,7 @@ String sTitleScreen = "\n"
     "\n                                                  ";
 
 void DisplayOptions() {
-  print('\t[L] Look Around\t\t[O] Open');
+  print('\t[L] Look Around\t\t\t[O] Open');
   print('\t[P] Pick Up\t\t\t[U] Use');
   print('\t[E] Examine\t\t\t[Q] Quit');
 }
@@ -225,19 +225,11 @@ Map chessRoomDescriptions = {
 };
 
 /*            NPCs           */
-// List<String> familiarVoiceLines = [sFamIntroduce, sFamWrong, sFamRight];
 String sFamRight = '“Yes, become IMMORTAL!“';
 String sFamWrong = '“Wrong, MORTAL!“';
 String sFamIntroduce =
     '“Why are you running? Don\'t you want to be immortal?.”\n\“There is no point in trying to escape... but I suppose it could be a fun game.”\n\“When you realize your efforts are futile, just reach into your pocket, drink the kool-aid and claim your IMMORTALITY!”';
 
-// List<String> gargoyleVoiceLines = [
-//   sGargIntroduce,
-//   sGargChessManual,
-//   sGargAbout,
-//   sGargGreeting,
-//
-// ];
 List<String> sGargAnswers = [
   sGargAskAbout,
   sGargAskChess,
@@ -255,12 +247,18 @@ String sGargChess =
     '“If you can\'t even remember the continuation for the immortal game itself then just copy it from the chess manual and write it down in the notation book.\nCertainly don\'t do it here. Go away.“';
 String sGargAbout =
     '“It\'s a fancy place. It used to have plenty patrons. These days it only sees the infrequent square or a knob come by.\nI thought we would reach capacity with this whole immortality business but it seems like it\'s the opposite!“';
-String sGargMap = '“Okay. You can have this map.“';
+String sGargMap =
+    '“Okay. You can have this map.“%The gargoyle hands you a map. You put it in your pocket.';
 String sGargKoolAid = '“I do have way too much KoolAid. Here you go.“';
+String sKoolAidYesNo =
+    'The gargoyle hands you some KoolAid. You put it in your pocket.%“Oh you already have some KoolAid there. I suppose you would\'nt be here if you\'d have gulped it...“';
 String sGargGreeting = '“What?“';
 String sGargTurnItOff = 'Really dude. Please turn that off.';
 String sGargTurnItOffAgain =
     '“Don\'t make me ask you again. Turn off the flash“';
+String sGargLastChance =
+    '“If you say no one more time that is it!“\n“I will end our friendship on the saddest terms.“\n“Choose wisely.“';
+String sGargNotFriends = '“We\'re not friends. I have nothing to say to you.“';
 
 /*            ChessManual           */
 List<Map> ChessManualEntries = [
