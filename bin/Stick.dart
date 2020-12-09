@@ -13,9 +13,6 @@ class Stick {
   //Inventory
   List<Items> inventory = [
     Items.KoolAid,
-    Items.Map,
-    Items.ChessManual,
-    Items.Key
   ];
   // ChessManual
   bool isCorrectContinuation;
