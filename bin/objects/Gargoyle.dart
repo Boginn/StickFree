@@ -20,5 +20,5 @@ class Gargoyle extends NPC {
     this.asks = 1;
   }
 
-  void say(String line) => print('Gargoyle says: $line');
+  void say(String line) => print('Gargoyle says: “$line“');
 }

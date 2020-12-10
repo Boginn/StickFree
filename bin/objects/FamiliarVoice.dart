@@ -12,5 +12,6 @@ class FamiliarVoice extends NPC {
     this.isFriendly = false;
   }
 
+  void say(String line) => print('The voice says: “$line“');
   void sayRightOrWrong(bool foo) => foo ? Prompt(sFamRight) : print(sFamWrong);
 }

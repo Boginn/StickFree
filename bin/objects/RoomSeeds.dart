@@ -3,146 +3,123 @@ import '../Strings.dart';
 
 export 'Room.dart';
 
-void Seed() {
-  firstRoom.availableRooms.add(lobbyRoom); // 'A door in front of you',
-  firstRoom.availableRooms.add(secondRoom); // 'A door to the left',
-  firstRoom.availableRooms.add(livingRoom); // 'A door to the right',
-  firstRoom.availableRooms.add(firstRoom); // 'Nothing, stay here',
+void InitialSeed() {
+  firstRoom.seed(lobbyRoom, 'A door in front of you');
+  firstRoom.seed(secondRoom, 'A door to the left');
+  firstRoom.seed(livingRoom, 'A door to the right');
+  firstRoom.seed(firstRoom, 'Nothing, stay here');
 
-  lobbyRoom.availableRooms.add(firstRoom); // 'The door back.',
-  lobbyRoom.availableRooms.add(exitRoom); // ,
-  lobbyRoom.availableRooms.add(lobbyRoom); // 'Nothing, stay here',
+  lobbyRoom.seed(firstRoom, 'The door back');
+  lobbyRoom.seed(exitRoom, 'An exit');
+  lobbyRoom.seed(lobbyRoom, 'Nothing, stay here');
 
-  secondRoom.availableRooms.add(smokeRoom); // 'A door in front of you',
-  secondRoom.availableRooms.add(closetRoom); // 'A door to the left',
-  secondRoom.availableRooms.add(firstRoom); // 'A door to the right',
-  secondRoom.availableRooms.add(secondRoom); // 'Nothing, stay here',
+  secondRoom.seed(smokeRoom, 'A door in front of you');
+  secondRoom.seed(closetRoom, 'A door to the left');
+  secondRoom.seed(firstRoom, 'The door to the room you woke up in');
+  secondRoom.seed(secondRoom, 'Nothing, stay here');
 
-  smokeRoom.availableRooms.add(secondRoom); // 'The door back.',
-  smokeRoom.availableRooms.add(smokeRoom); // 'Nothing, stay here',
+  smokeRoom.seed(secondRoom, 'The door back');
+  smokeRoom.seed(smokeRoom, 'Nothing, stay here');
 
-  closetRoom.availableRooms.add(secondRoom); // 'The door back.',
-  closetRoom.availableRooms.add(closetRoom); // 'Nothing, stay here',
+  closetRoom.seed(secondRoom, 'The door back');
+  closetRoom.seed(closetRoom, 'Nothing, stay here');
 
-  livingRoom.availableRooms.add(balconyRoom); // 'A door in front of you',
-  livingRoom.availableRooms.add(firstRoom); // 'A door to the left',
-  livingRoom.availableRooms.add(darkRoom); // 'A door to the right',
-  livingRoom.availableRooms.add(livingRoom); // 'Nothing, stay here',
+  livingRoom.seed(balconyRoom, 'A door to a balcony');
+  livingRoom.seed(firstRoom, 'The door to the room you woke up in');
+  livingRoom.seed(darkRoom, 'A door to the right');
+  livingRoom.seed(livingRoom, 'Nothing, stay here');
 
-  balconyRoom.availableRooms.add(livingRoom); // 'The door back.',
-  balconyRoom.availableRooms.add(balconyRoom); // 'Nothing, stay here',
+  balconyRoom.seed(livingRoom, 'The door back to the living room');
+  balconyRoom.seed(balconyRoom, 'Nothing, stay here');
 
-  darkRoom.availableRooms.add(livingRoom); // 'A door to the left',
-  // darkRoom.visibleRooms.add(chessRoom); // 'A door to the right',(future)
-  darkRoom.availableRooms.add(darkRoom); // 'Nothing, stay here',
+  darkRoom.seed(livingRoom, 'The door back to the living room');
+  darkRoom.seed(darkRoom, 'Nothing, stay here');
 
-  chessRoom.availableRooms.add(darkRoom); // 'The door back.',
-  chessRoom.availableRooms.add(chessRoom); // 'Nothing, stay here',
+  chessRoom.seed(darkRoom, 'The door back to the dark room');
+  chessRoom.seed(chessRoom, 'Nothing, stay here');
 }
 
 Room firstRoom = Room(
   whichRoom: Rooms.FirstRoom,
+  // doorDescription updates the last room the player was in
+  // The room the player starts in updates itself
+  doorDescription: 'Nothing, stay here',
   roomDescriptions: firstRoomDescriptions,
-  availableRooms: [], // Seed: lobby, secondRoom, thirdRoom
-  sAvailableRooms: [
-    'A door in front of you', // Lobby
-    'A door to the left', // SecondRoom
-    'A door to the right', // LivingRoom
-    'Nothing, stay here', // Stay
-  ],
+  availableRooms: [],
+  availableRoomsDescriptions: [],
   visibleItems: [],
   cloudedItems: [Items.RubberChicken],
 );
 
 Room lobbyRoom = Room(
   whichRoom: Rooms.Lobby,
+  doorDescription: 'The door to the lobby',
   roomDescriptions: lobbyRoomDescriptions,
-  availableRooms: [], // Seed: firstRoom, exitRoom
-  sAvailableRooms: [
-    'The door back', // FirstRoom
-    'An exit', // exitRoom
-    'Nothing, stay here', // Stay
-  ],
+  availableRooms: [],
+  availableRoomsDescriptions: [],
   visibleItems: [],
   cloudedItems: [],
 );
 
 Room secondRoom = Room(
   whichRoom: Rooms.SecondRoom,
+  doorDescription: 'The door to a similar room',
   roomDescriptions: secondRoomDescriptions,
-  availableRooms: [], // Seed: smokeRoom, closetRoom, firstRoom
-  sAvailableRooms: [
-    'A door in front of you', // SmokeRoom
-    'A door to the left', // ClosetRoom
-    'The door to that first room', // FirstRoom
-    'Nothing, stay here', // Stay
-  ],
+  availableRooms: [],
+  availableRoomsDescriptions: [],
   visibleItems: [],
   cloudedItems: [Items.Triangle, Items.Key],
 );
 
 Room smokeRoom = Room(
   whichRoom: Rooms.SmokeRoom,
+  doorDescription: 'The door to the smokey room',
   roomDescriptions: smokeRoomDescriptions,
-  availableRooms: [], // Seed: secondRoom
-  sAvailableRooms: [
-    'The door back.', // SecondRoom
-    'Nothing, stay here', // Stay
-  ],
+  availableRooms: [],
+  availableRoomsDescriptions: [],
   visibleItems: [],
   cloudedItems: [Items.NotationBook],
-  locked: true,
+  isLocked: true,
   isFire: true,
 );
 
 Room closetRoom = Room(
   whichRoom: Rooms.ClosetRoom,
+  doorDescription: 'The door to the closet',
   roomDescriptions: closetRoomDescriptions,
-  availableRooms: [], // Seed: secondRoom
-  sAvailableRooms: [
-    'The door back.', // SecondRoom
-    'Nothing, stay here', // Stay
-  ],
+  availableRooms: [],
+  availableRoomsDescriptions: [],
   visibleItems: [],
   cloudedItems: [Items.Flashlight],
 );
 
 Room livingRoom = Room(
   whichRoom: Rooms.LivingRoom,
+  doorDescription: 'The door to the living room',
   roomDescriptions: livingRoomDescriptions,
-  availableRooms: [], // Seed: balconyRoom, firstRoom, darkRoom
-  sAvailableRooms: [
-    'A door to the balcony', // BalconyRoom
-    'A door to that first room', // FirstRoom
-    'A door to the right', // DarkRoom
-    'Nothing, stay here', // Stay
-  ],
+  availableRooms: [],
+  availableRoomsDescriptions: [],
   visibleItems: [],
   cloudedItems: [Items.ChessManual],
 );
 
 Room balconyRoom = Room(
   whichRoom: Rooms.BalconyRoom,
+  doorDescription: 'The door to the balcony',
   roomDescriptions: balconyRoomDescriptions,
-  availableRooms: [], // Seed: livingRoom
-  sAvailableRooms: [
-    'The door back to the living room.', // LivingRoom
-    'Nothing, stay here', // Stay
-  ],
+  availableRooms: [],
+  availableRoomsDescriptions: [],
   visibleItems: [],
   cloudedItems: [Items.Square, Items.Knob],
-  locked: true,
+  isLocked: true,
 );
 
 Room darkRoom = Room(
   whichRoom: Rooms.DarkRoom,
+  doorDescription: 'The door to the dark room',
   roomDescriptions: darkRoomDescriptions,
-  availableRooms: [], // Seed: livingRoom, chessRoom (future)
-  sAvailableRooms: [
-    'The door back to the living room', // LivingRoom
-    // 'A door to the right', // ChessRoom(future)
-    'Nothing, stay here', // Stay
-  ],
+  availableRooms: [],
+  availableRoomsDescriptions: [],
   visibleItems: [],
   cloudedItems: [],
   isLit: false,
@@ -150,21 +127,21 @@ Room darkRoom = Room(
 
 Room chessRoom = Room(
   whichRoom: Rooms.ChessRoom,
+  doorDescription: 'The door to the chess hall',
   roomDescriptions: chessRoomDescriptions,
-  availableRooms: [], // Seed: darkRoom
-  sAvailableRooms: [
-    'The door back to the dark room', // DarkRoom
-    'Nothing, stay here', // Stay
-  ],
+  availableRooms: [],
+  availableRoomsDescriptions: [],
   visibleItems: [],
   cloudedItems: [Items.Cloth],
-  locked: true,
+  isLocked: true,
 );
 
 Room exitRoom = Room(
   whichRoom: Rooms.Exit,
+  doorDescription: '',
   roomDescriptions: firstRoomDescriptions,
   availableRooms: [],
+  availableRoomsDescriptions: [],
   visibleItems: [],
   cloudedItems: [],
 );

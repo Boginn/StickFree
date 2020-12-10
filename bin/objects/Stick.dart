@@ -23,9 +23,10 @@ class Stick {
   bool isSquare = false;
   bool isCircle = false;
   // Gargoyle
-  bool canDisturbGargoyle() => (isFlashlight &&
+  bool canDisturbGargoyle(cRoom) => (isFlashlight &&
       inventory.contains(Items.ChessManual) &&
-      balconyRoom.investigated);
+      balconyRoom.isInvestigated &&
+      cRoom == balconyRoom);
 
   void Investigate(Room cRoom) {
     // is Look Around to the user
@@ -34,94 +35,35 @@ class Stick {
     if (!cRoom.isLit && !isFlashlight) {
       print(sCantSee);
       // Check if already investigated
-    } else if (cRoom.investigated) {
-      print(cRoom.roomDescriptions['Investigated']);
+    } else if (cRoom.isInvestigated) {
+      cRoom.displayInvestigateDesc(cRoom.isInvestigated);
       // Leave a message if there are any items yet to be picked up
       if (cRoom.visibleItems.isNotEmpty) {
         print(sItemsAvailable);
       }
       // Else investigate
     } else {
+      // On first investigation
       // Reveal items, toggle investigated
-      cRoom.toggleInvestigated(cRoom);
+      cRoom.displayInvestigateDesc(cRoom.isInvestigated);
+      cRoom.toggleInvestigated();
 
-      // Interpret based on room
-      // FirstRoom
+      //Score
+      stickScore += 20;
+
+      // Update descriptions
       if (cRoom == firstRoom) {
-        // Update room description
-        cRoom.sAvailableRooms.replaceRange(0, 1, ["A door marked 'Lobby'"]);
+        cRoom.insertDoorDescription(lobbyRoom, "A door marked 'Lobby'");
       }
-      // ClosetRoom
-      if (cRoom == closetRoom) {
-        // Update room description in other rooms
-        cRoom.availableRooms[cRoom.availableRooms.indexOf(secondRoom)]
-            .sAvailableRooms
-            .replaceRange(
-                secondRoom.availableRooms.indexOf(closetRoom),
-                secondRoom.availableRooms.indexOf(closetRoom) + 1,
-                ['The door to the closet']);
-      }
-      // SmokeRoom
-      if (cRoom == smokeRoom) {
-        // Update room description in other rooms
-        cRoom.availableRooms[cRoom.availableRooms.indexOf(secondRoom)]
-            .sAvailableRooms
-            .replaceRange(
-                secondRoom.availableRooms.indexOf(smokeRoom),
-                secondRoom.availableRooms.indexOf(smokeRoom) + 1,
-                ['The door to the smokey room.']);
-      }
-      // DarkRoom
       if (cRoom == darkRoom) {
-        // Update room description
-        cRoom.roomDescriptions['Explored'] = "It\'s the dark hallway.";
-        // Update room description in other rooms
-        cRoom.availableRooms[cRoom.availableRooms.indexOf(livingRoom)]
-            .sAvailableRooms
-            .replaceRange(
-                livingRoom.availableRooms.indexOf(darkRoom),
-                livingRoom.availableRooms.indexOf(darkRoom) + 1,
-                ['The door to the dark room']);
+        cRoom.updateRoomInvestigateDesc(
+            investigated: cRoom.isInvestigated,
+            description: 'It\'s the dark hallway.');
         // Seed chessRoom
-        darkRoom.availableRooms
-            .insert(darkRoom.availableRooms.indexOf(darkRoom), chessRoom);
-        darkRoom.sAvailableRooms.insert(
-            darkRoom.availableRooms.indexOf(darkRoom) - 1,
-            'The door at the end of the hallway');
-      }
-      // ChessRoom
-      if (cRoom == chessRoom) {
-        // Update room description in other rooms
-        cRoom.availableRooms[cRoom.availableRooms.indexOf(darkRoom)]
-            .sAvailableRooms
-            .replaceRange(
-                firstRoom.availableRooms.indexOf(chessRoom),
-                firstRoom.availableRooms.indexOf(chessRoom) + 1,
-                ['The door to the chess hall']);
-      }
-      // LivingRoom
-      if (cRoom == livingRoom) {
-        // Update room description in other rooms
-        cRoom.availableRooms[cRoom.availableRooms.indexOf(firstRoom)]
-            .sAvailableRooms
-            .replaceRange(
-                firstRoom.availableRooms.indexOf(livingRoom),
-                firstRoom.availableRooms.indexOf(livingRoom) + 1,
-                ['The door to the living room']);
-      }
-      // SecondRoom
-      if (cRoom == secondRoom) {
-        // Update room description in other rooms
-        cRoom.availableRooms[cRoom.availableRooms.indexOf(firstRoom)]
-            .sAvailableRooms
-            .replaceRange(
-                firstRoom.availableRooms.indexOf(secondRoom),
-                firstRoom.availableRooms.indexOf(secondRoom) + 1,
-                ['The door to a similar room']);
+        cRoom.seedSpawn(chessRoom, 'The door at the end of the hallway');
       }
     }
-    //Score
-    stickScore += 20;
+
     DisplayOptions();
     DisplayScore();
   }
@@ -129,8 +71,8 @@ class Stick {
   Room Open(Room cRoom) {
     // Display options
     print(sOpen);
-    for (int i = 0; i < cRoom.sAvailableRooms.length; i++) {
-      print('\t[${i + 1}] ' + cRoom.sAvailableRooms[i]);
+    for (int i = 0; i < cRoom.availableRoomsDescriptions.length; i++) {
+      print('\t[${i + 1}] ' + cRoom.availableRoomsDescriptions[i]);
     }
     // Get input
     int input = getIntAnswer(cRoom.availableRooms.length) - 1;
@@ -140,7 +82,7 @@ class Stick {
     if (cRoom == firstRoom &&
         (input) == cRoom.availableRooms.indexOf(lobbyRoom)) {
       if (isTriangle && isSquare && isCircle) {
-        cRoom.availableRooms[input].locked = false;
+        cRoom.availableRooms[input].isLocked = false;
         print(sOpenLobby);
         //Score
         stickScore += 100;
@@ -153,7 +95,7 @@ class Stick {
     // SecondRoom
     if (cRoom == secondRoom &&
         (input) == cRoom.availableRooms.indexOf(smokeRoom)) {
-      if (!cRoom.availableRooms[input].locked) {
+      if (!cRoom.availableRooms[input].isLocked) {
         return cRoom.availableRooms[input];
       } else {
         print(sOpenSmokeLocked);
@@ -163,7 +105,7 @@ class Stick {
     // LivingRoom
     if (cRoom == livingRoom &&
         (input) == cRoom.availableRooms.indexOf(balconyRoom)) {
-      if (!cRoom.availableRooms[input].locked) {
+      if (!cRoom.availableRooms[input].isLocked) {
         return cRoom.availableRooms[input];
       } else {
         print(sOpenBalconyLocked);
@@ -180,13 +122,13 @@ class Stick {
           // If not check if the flashlight is on
           if (isFlashlight) {
             // Check if locked
-            if (!cRoom.availableRooms[input].locked) {
+            if (!cRoom.availableRooms[input].isLocked) {
               return cRoom.availableRooms[input];
             } else {
               print(sOpenChessRoomLocked);
               return cRoom;
             }
-            // If the flashlight is off, return to same room
+            // If the flashlight is off, return to the same room
           } else {
             print(sCantSee);
             return cRoom;
@@ -206,11 +148,11 @@ class Stick {
   }
 
   void PickUp(Room cRoom) {
-    // Check if dark or fire
-    if (cRoom.whichRoom == Rooms.DarkRoom && !isFlashlight) {
-      print(sCantSee);
-    } else if (cRoom.whichRoom == Rooms.SmokeRoom && cRoom.isFire) {
+    // Check if fire or dark
+    if (cRoom.isFire) {
       print(sFire);
+    } else if (!cRoom.isLit && !isFlashlight) {
+      print(sCantSee);
     } else {
       // Check if anything is available to pick up
       if (cRoom.visibleItems.isEmpty) {
@@ -244,15 +186,17 @@ class Stick {
     int input = getIntAnswer(inventory.length) - 1;
     // Interpret according to item
     if (inventory[input] == Items.KoolAid) {
-      UseItemFurther(Items.KoolAid, 'Drink the KoolAid?', DrinkTheKoolAid);
+      UseItemFurther(
+          cRoom, Items.KoolAid, 'Drink the KoolAid?', DrinkTheKoolAid);
       if (cRoom.whichRoom == Rooms.SmokeRoom && cRoom.isFire) {
         UseItemFurther(
+            cRoom,
             Items.KoolAid,
             'Hold up, did you want to try putting out the flame with the KoolAid?',
             PourTheKoolAid);
       }
     } else if (inventory[input] == Items.RubberChicken) {
-      if (cRoom.whichRoom == Rooms.Lobby && cRoom.investigated) {
+      if (cRoom.whichRoom == Rooms.Lobby && cRoom.isInvestigated) {
         print(sUseRubberChickenCorrect);
         //Score
         stickScore += 50;
@@ -266,10 +210,7 @@ class Stick {
         isTriangle = true;
         //Score
         stickScore += 10;
-        UnlockLobby();
-        inventory.remove(Items.Triangle);
-        sOpenLobbyLocked =
-            'You\'re fairly sure you just need to put the rest of the shapes in place';
+        UnlockLobby(Items.Triangle);
       } else {
         print(sNoUse);
       }
@@ -279,10 +220,7 @@ class Stick {
         isSquare = true;
         //Score
         stickScore + 10;
-        UnlockLobby();
-        inventory.remove(Items.Square);
-        sOpenLobbyLocked =
-            'You\'re fairly sure you just need to put the rest of the shapes in place';
+        UnlockLobby(Items.Square);
       } else {
         print(sNoUse);
       }
@@ -292,10 +230,7 @@ class Stick {
         isCircle = true;
         //Score
         stickScore += 10;
-        UnlockLobby();
-        inventory.remove(Items.Circle);
-        sOpenLobbyLocked =
-            'You\'re fairly sure you just need to put the rest of the shapes in place';
+        UnlockLobby(Items.Circle);
       } else {
         print(sNoUse);
       }
@@ -313,15 +248,16 @@ class Stick {
       }
     } else if (inventory[input] == Items.ChessManual) {
       print(sUseChessManual);
-      UseItemFurther(Items.ChessManual, 'Read the index?', ReadChessManual);
+      UseItemFurther(
+          cRoom, Items.ChessManual, 'Read the index?', ReadChessManual);
     } else if (inventory[input] == Items.Key) {
-      if (cRoom.whichRoom == Rooms.LivingRoom) {
+      if (cRoom.whichRoom == Rooms.LivingRoom && cRoom.isLocked) {
         print(sKeyCorrect);
         //Score
         stickScore += 20;
         // Unlock
-        cRoom.availableRooms[cRoom.availableRooms.indexOf(balconyRoom)].locked =
-            false;
+        cRoom.availableRooms[cRoom.availableRooms.indexOf(balconyRoom)]
+            .isLocked = false;
       } else {
         print(sUseKey);
       }
@@ -329,12 +265,10 @@ class Stick {
       if (cRoom.whichRoom == Rooms.DarkRoom && isFlashlight) {
         print(sKnobCorrect);
         inventory.remove(Items.Knob);
-        //Score
-        stickScore += 20;
         // Unlock
-        cRoom.availableRooms[cRoom.availableRooms.indexOf(chessRoom)].locked =
+        cRoom.availableRooms[cRoom.availableRooms.indexOf(chessRoom)].isLocked =
             false;
-        //Score
+        // Score
         stickScore += 50;
       } else {
         print(sNoUse);
@@ -357,23 +291,24 @@ class Stick {
           print(sUseNotationBookCorrect.split('%').last);
           cRoom.visibleItems.add(Items.Circle);
           // Update room description
-          cRoom.roomDescriptions['Investigated'] =
-              'It\'s the hall that had the chess board.';
+          cRoom.updateRoomInvestigateDesc(
+              investigated: cRoom.isInvestigated,
+              description: 'It\'s the hall that had the chess board.');
         }
       } else {
         print(sUseNotationBook);
       }
     } else if (inventory[input] == Items.Map) {
       print(sExamineUseMap);
-      UseItemFurther(Items.Map, 'Look at the map?', UseMap);
+      UseItemFurther(cRoom, Items.Map, 'Look at the map?', UseMap);
     } else if (inventory[input] == Items.Cloth) {
       if (cRoom.whichRoom == Rooms.SecondRoom) {
         // Unlock
         print(sUseClothCorrect);
-        //Score
-        stickScore += 20;
-        cRoom.availableRooms[cRoom.availableRooms.indexOf(smokeRoom)].locked =
+        cRoom.availableRooms[cRoom.availableRooms.indexOf(smokeRoom)].isLocked =
             false;
+        // Score
+        stickScore += 20;
       } else {
         print(sNoUse);
       }
@@ -382,11 +317,12 @@ class Stick {
     DisplayScore();
   }
 
-  void UseItemFurther(Items item, String description, Function itemFunction) {
+  void UseItemFurther(
+      Room cRoom, Items item, String description, Function itemFunction) {
     print(description);
     bool answer = getYesNo();
     answer
-        ? itemFunction()
+        ? itemFunction(cRoom)
         : print('You put the ${item.toString().split('.').last} back.');
   }
 
@@ -397,31 +333,36 @@ class Stick {
     Exit(false);
   }
 
-  void PourTheKoolAid() {
-    // Update descriptions. Make Investigate use past tense for the fire.
-    smokeRoomDescriptions['Explored'] =
-        'It\'s the room that was on fire before.';
-    smokeRoomDescriptions['FirstInvestigate'] =
-        smokeRoomDescriptions['FirstInvestigate'].replaceRange(34, 35, 'wa');
-    smokeRoomDescriptions['FirstInvestigate'] =
-        smokeRoomDescriptions['FirstInvestigate']
-            .replaceRange(70, 71, ' still ');
-    smokeRoomDescriptions['Investigated'] =
-        'It\'s smokey but at least there isn\'t a fire burning anymore.';
+  void PourTheKoolAid(Room cRoom) {
+    // Update descriptions.
+    cRoom.updateRoomExploreDesc(
+        explored: cRoom.isExplored,
+        description: 'It\'s the room that was on fire before.');
+    cRoom.updateRoomInvestigateDesc(
+        investigated: false,
+        description:
+            'It looks like a burning cigarette was the source of the fire. There is still a lot of smoke but you can see a notebook in the corner.');
+    cRoom.updateRoomInvestigateDesc(
+        investigated: true,
+        description:
+            'It\'s smokey but at least there isn\'t a fire burning anymore.');
+
     smokeRoom.isFire = false;
     inventory.remove(Items.KoolAid);
+    cRoom.toggleInvestigated();
     Prompt(sUseKoolAidCorrect);
-    //Score
+    // Score
     stickScore += 100;
   }
 
   void UseMap() {
+    // Score
     stickScore += 666;
     DisplayMap();
     Prompt('');
   }
 
-  void ReadChessManual() {
+  void ReadChessManual(Room cRoom) {
     while (true) {
       // Display Index
       int i = 1;
@@ -439,17 +380,14 @@ class Stick {
       // Display Content
       print('${ChessManualEntries[input]['Content']}');
       // Ask for commitment
-      int chosenIndex = input;
-      print(
-          'You know how to play chess but you can\'t possibly memorize more than one line at a time.');
-      print('Commit the continuation to memory?');
-
+      // int chosenIndex = input;
+      print(sCommit);
       bool answer = getYesNo();
       if (answer) {
         Prompt('You commit the final continuation of '
-            '${ChessManualEntries[chosenIndex]['Index'].toString().split(',').first} to your memory.');
+            '${ChessManualEntries[input]['Index'].toString().split(',').first} to your memory.');
         // Check if input is correct
-        ChessManualEntries[chosenIndex] == ChessManualEntries[4]
+        ChessManualEntries[input] == ChessManualEntries[4]
             ? isCorrectContinuation = true
             : isCorrectContinuation = false;
       } else {
@@ -458,9 +396,15 @@ class Stick {
     }
   }
 
-  void UnlockLobby() {
-    if (isTriangle && isSquare && isCircle) {
-      lobbyRoom.locked = false;
+  void UnlockLobby(Items item) {
+    inventory.remove(item);
+    // Update description
+    sOpenLobbyLocked =
+        'You\'re fairly sure you just need to put the rest of the shapes in place';
+    if (isTriangle && isSquare && isCircle && lobbyRoom.isLocked) {
+      lobbyRoom.isLocked = false;
+      // Score
+      stickScore += 50;
       print(sOpenLobby);
     }
   }
@@ -499,7 +443,7 @@ class Stick {
       print(sExamineNotationBook);
     } else if (inventory[input] == Items.Map) {
       print(sExamineUseMap);
-      UseItemFurther(Items.Map, 'Look at the map?', UseMap);
+      UseItemFurther(cRoom, Items.Map, 'Look at the map?', UseMap);
     }
     DisplayOptions();
     DisplayScore();

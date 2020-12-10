@@ -16,30 +16,30 @@ class Brain {
   Room currentRoom;
   Brain(this.currentRoom);
 
-  void StickInterface() {
+  void StickInterface(List<String> controls) {
     String input =
         stdin.readLineSync(encoding: Encoding.getByName('utf-8')).toLowerCase();
     if (input == '') {
-    } else if (input.substring(0, 1) == 'l') {
+    } else if (input.substring(0, 1) == controls[0]) {
       // Gargoyle condition
-      stick.canDisturbGargoyle()
+      stick.canDisturbGargoyle(currentRoom)
           ? gargoyleMeet()
           : stick.Investigate(currentRoom);
-    } else if (input.substring(0, 1) == 'p') {
+    } else if (input.substring(0, 1) == controls[1]) {
       stick.PickUp(currentRoom);
       DisplayOptions();
       stick.DisplayScore();
-    } else if (input.substring(0, 1) == 'o') {
-      var sameRoom = currentRoom;
+    } else if (input.substring(0, 1) == controls[2]) {
+      var lastRoom = currentRoom;
       currentRoom = stick.Open(currentRoom);
       // Check if still in the same room
-      if (sameRoom == currentRoom) {
+      if (lastRoom == currentRoom) {
         DisplayOptions();
         stick.DisplayScore();
       } else {
-        EnterRoom();
+        EnterRoom(lastRoom);
       }
-    } else if (input.substring(0, 1) == 'u') {
+    } else if (input.substring(0, 1) == controls[3]) {
       stick.Use(currentRoom);
     } else if (input.substring(0, 1) == 'e') {
       stick.Examine(currentRoom);
@@ -51,31 +51,27 @@ class Brain {
     }
   }
 
-  void EnterRoom() {
-    // Check if explored
-    if (!(currentRoom.explored)) {
-      print(currentRoom.roomDescriptions['FirstExplore']);
-      // Check if room is dark and if flashlight is on
-      if (!currentRoom.isLit && stick.isFlashlight) {
-        print(sIsFlashlight);
-      }
-    } else {
-      print(currentRoom.roomDescriptions['Explored']);
-      if (!currentRoom.isLit && stick.isFlashlight) {
-        print(sIsFlashlight);
-      }
+  void EnterRoom(Room lastRoom) {
+    // Update descriptions in the last room
+    currentRoom.updateDoorDescriptions(lastRoom);
+    // Display description
+    currentRoom.displayExploreDesc(currentRoom.isExplored);
+    // Check if room is dark and if flashlight is on
+    if (!currentRoom.isLit && stick.isFlashlight) {
+      print(sIsFlashlight);
     }
     // Toggle explored
-    currentRoom.explored = true;
+    currentRoom.isExplored = true;
+
     DisplayOptions();
     stick.DisplayScore();
   }
 
   void Intro() {
     print(sTitleScreen);
-    Prompt('');
     Prompt('You wake up to the sound of a familiar voice in your head.');
-    Prompt(sFamIntroduce);
+    stick.famVoice.say('$sFamIntroduceA\n$sFamIntroduceB\n$sFamIntroduceC');
+    Prompt('');
   }
 
   void Win() {
@@ -89,8 +85,7 @@ class Brain {
     int counter = 0;
     if (!gargoyle.isAwake) {
       // Introduction
-      Prompt(
-          'Suddenly you hear a noise and the mighty gargoyle statue looks at you.');
+      Prompt(sGargoyleMeet);
       gargoyle.say(sGargIntroduce);
     }
     // Ask to turn off flashlight
@@ -106,29 +101,32 @@ class Brain {
 
   void gargoyleTurnItOff() {
     int counter = 0;
+    gargoyle.say(sGargTurnItOff);
     while (true) {
       if (!gargoyle.isFriendly) {
         break;
       }
-      gargoyle.say(sGargTurnItOff);
       print('Turn off the flashlight?');
       bool answer = getYesNo();
 
       if (answer) {
+        //Score
+        stick.stickScore -= 20;
         stick.isFlashlight = false;
         print(sUseFlashlightOff);
-        gargoyle.say('“Thanks.“');
+        gargoyle.say('Thanks.');
         Prompt('');
         break;
       } else {
         if (counter == gargoyle.flashlightChances - 3) {
-          gargoyle.say('“I mean it.“');
+          gargoyle.say('I mean it.');
         } else if (counter == gargoyle.flashlightChances - 2) {
-          gargoyle.say('“I will end you.“');
+          gargoyle.say('I will end you.');
         } else if (counter == gargoyle.flashlightChances - 1) {
           gargoyle.say(sGargLastChance);
         } else if (counter == gargoyle.flashlightChances) {
           gargoyle.isFriendly = false;
+          //Score
           stick.stickScore -= 666;
         } else {
           gargoyle.say(sGargTurnItOffAgain);

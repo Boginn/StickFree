@@ -3,6 +3,29 @@ import 'dart:convert';
 
 import 'Strings.dart';
 
+List<String> defaultControls = ['l', 'p', 'o', 'u'];
+List<String> alternativeControls = ['1', '3', '2', '4'];
+List<String> chosenControls = [];
+
+void ControlScheme() {
+  DisplayOptionsDefault();
+  print('\tDEFAULT key binds for actions');
+  Prompt('');
+  DisplayOptionsAlt();
+  print('\tALTERNATIVE key binds for actions');
+  Prompt('');
+  print('Would you like to use the alternative control scheme?');
+  getYesNo()
+      ? chosenControls = alternativeControls
+      : chosenControls = defaultControls;
+}
+
+void DisplayOptions() {
+  chosenControls == defaultControls
+      ? DisplayOptionsDefault()
+      : DisplayOptionsAlt();
+}
+
 bool getYesNo() {
   while (true) {
     DisplayYesNo();

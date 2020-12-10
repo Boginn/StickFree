@@ -1,15 +1,17 @@
 import 'Brain.dart';
+import 'functions.dart';
 import 'objects/RoomSeeds.dart';
 
 Brain brain = Brain(firstRoom);
 
 void main() {
-  Seed();
+  InitialSeed();
+  ControlScheme();
   brain.Intro();
-  brain.EnterRoom();
+  brain.EnterRoom(firstRoom);
 
   while (!brain.stick.win) {
-    brain.StickInterface();
+    brain.StickInterface(chosenControls);
   }
 
   brain.Win();

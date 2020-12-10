@@ -4,23 +4,20 @@ Some notes:<br>
 /**/<br>
 The @required field 'roomDescriptions' of a new Room takes a Map, it should have 4 keys: 'FirstExplore', 'Explored', 'FirstInvestigate' and 'Investigated'
 
-% in strings are to split them allowing a Prompt() in between
+% in strings are there to split them, for example, allowing a Prompt() in between
 
 To seed a room:
-add it to the availableRooms list for the object,<br>
-add a corresponding string in the sAvailableRooms list for the object,<br>
-the last entry in availableRooms and sAvailableRooms
-should always be the parent(itself) room so make sure the index 
-of any new seeds is the second to last,<br>
-if connecting to other rooms make sure to add any references
+call seed(Room, String)<br>
+the last entry in availableRooms and availableRoomsDescriptions
+should always be the parent(itself)<br>
+see InitialSeed()
 
-example: To seed the room NEWROOM
-       
-        PARENTROOM.availableRooms
-            .insert(darkRoom.availableRooms.indexOf(PARENTROOM), NEWROOM);
-        PARENTROOM.sAvailableRooms.insert(
-            PARENTROOM.availableRooms.indexOf(PARENTROOM) - 1,
-            'A door to the left');
+
+To seed a room during runtime:
+call seedSpawn(Room, String)<br>
+it places the seed at the next to last index of the 
+current room's availableRooms/availableRoomsDescriptions<br>
+if connecting to other rooms make sure to add any references to those rooms.
 
 /**/
 
@@ -95,8 +92,8 @@ Open door to the lobby<br>
 Look Around<br>
 Use RubberChicken<br>
 
-optional:
+**Optional**:<br>
 Go to the balcony with the ChessManual in your inventory and the flashlight turned on.<br>
 Look Around once or twice and you will wake the Gargoyle.<br>
 He will tell you what to do and provide a map for lots of bonus points.<br>
-Careful though if you're going for max points, turning off the flashlight subtracts points as well as antagonizing the gargoyle.
+Careful though if you're going for max points, antagonizing the gargoyle subtracts points as well as turning off the flashlight.

@@ -21,9 +21,15 @@ String sTitleScreen = "\n"
     "\n                           (@@@@@@@@@@@@@@@@@@@@@@"
     "\n                                                  ";
 
-void DisplayOptions() {
+void DisplayOptionsDefault() {
   print('\t[L] Look Around\t\t\t[O] Open');
   print('\t[P] Pick Up\t\t\t[U] Use');
+  print('\t[E] Examine\t\t\t[Q] Quit');
+}
+
+void DisplayOptionsAlt() {
+  print('\t[1] Look Around\t\t\t[2] Open');
+  print('\t[3] Pick Up\t\t\t[4] Use');
   print('\t[E] Examine\t\t\t[Q] Quit');
 }
 
@@ -39,8 +45,8 @@ void DisplayMap() {
       "\n         +---^^--+             +-^^-+                  +---^^--------+"
       "\n    +--+ +---vv------------+ +---vv---------------+ +------vv---------+"
       "\n    |  <->                 | |                    | |                 |"
-      "\n    +----|                 <->                    <->                 |"
-      "\n    |                      | |                    | |              + +|"
+      "\n    +----|                 <->   I woke up        <->                 |"
+      "\n    |                      | |         here?      | |              + +|"
       "\n    +-K------------O------+ +---O------------L---+ |             +   |"
       "\n     +-------------------+                          |              + +|"
       "\n     |   +___________+   |                          |        +++      |"
@@ -79,7 +85,8 @@ String sUseKoolAid = 'You drink the KoolAid. Sweet dreams...';
 String sUseKoolAidCorrect =
     'You pour the KoolAid on the fire patch. Flames be doused, you\'ve done it!';
 
-String sIsFlashlight = 'Good thing your flashlight is turned on.';
+String sIsFlashlight =
+    'Good thing your flashlight is turned on so you can look around.';
 String sUseFlashlightOn = 'You turn on the flashlight. It works. Sweet.';
 String sUseFlashlightOff = 'You turn the flashlight off. Pity.';
 
@@ -117,6 +124,8 @@ String sPickUp = 'What would you like to pick up?';
 String sPickUpNothing = 'You don\'t see anything worth picking up.';
 String sOpen = 'What would you like to open?';
 String sInventory = 'You check your pockets. Select something to examine it.';
+String sCommit =
+    'You know how to play chess but you can\'t possibly memorize more than one line at a time.\nCommit the continuation to memory?';
 
 String sCantSee = 'You can\'t see what you\'re doing.';
 String sCantExit = 'It\'s further down than you can see. Better not jump.';
@@ -212,24 +221,8 @@ Map balconyRoomDescriptions = {
   'Investigated':
       'It\'s exactly the kind of balcony where you would find squares and knobs, actually.',
 };
-
-/*            ChessRoom           */
-Map chessRoomDescriptions = {
-  'FirstExplore':
-      'The doorknob does the trick, it opens the door.\nYou enter a large hall featuring an over sized chess board.',
-  'Explored': 'You are in the hall with the chess board.',
-  'FirstInvestigate':
-      'The chess pieces are about the height of yourself. The room has a loud echo.',
-  'Investigated':
-      'It\'s the hall with the over sized chess board. The echo is overbearing.',
-};
-
-/*            NPCs           */
-String sFamRight = '“Yes, become IMMORTAL!“';
-String sFamWrong = '“Wrong, MORTAL!“';
-String sFamIntroduce =
-    '“Why are you running? Don\'t you want to be immortal?.”\n\“There is no point in trying to escape... but I suppose it could be a fun game.”\n\“When you realize your efforts are futile, just reach into your pocket, drink the kool-aid and claim your IMMORTALITY!”';
-
+String sGargoyleMeet =
+    'Suddenly you hear a noise and the mighty gargoyle statue looks at you.';
 List<String> sGargAnswers = [
   sGargAskAbout,
   sGargAskChess,
@@ -241,24 +234,46 @@ String sGargAskChess = 'What should I learn from this ChessManual?';
 String sGargAskForSomething = 'Can I have something?';
 String sGargAskStop = 'Never mind. I will go now.';
 
+/*            ChessRoom           */
+Map chessRoomDescriptions = {
+  'FirstExplore':
+      'The doorknob does the trick, it opens the door.\nYou enter a large hall featuring an over sized chess board.',
+  'Explored': 'You are in the hall with the chess board.',
+  'FirstInvestigate':
+      'The chess pieces are about the height of yourself. The room has a loud echo. A groovy piece of cloth is just lying there. Glistening.',
+  'Investigated':
+      'It\'s the hall with the over sized chess board. The echo is overbearing.',
+};
+
+/*            NPC Voicelines           */
+// => NPC says: “ “
+// Familiar Voicee
+String sFamRight = 'Yes, become IMMORTAL!';
+String sFamWrong = 'Wrong, MORTAL!';
+String sFamIntroduceA = 'Why are you running? Don\'t you want to be immortal?.';
+String sFamIntroduceB =
+    'There is no point in trying to escape... but I suppose it could be a fun game.';
+String sFamIntroduceC =
+    'When you realize your efforts are futile, just reach into your pocket, drink the kool-aid and claim your IMMORTALITY!';
+
+// Gargoyle
 String sGargIntroduce =
-    '“Oof, you there. The stick with the flashlight. Turn that off immediately and go away, I\'m trying to sleep.“';
+    'Oof, you there. The stick with the flashlight. Turn that off immediately and go away, I\'m trying to sleep.';
 String sGargChess =
-    '“If you can\'t even remember the continuation for the immortal game itself then just copy it from the chess manual and write it down in the notation book.\nCertainly don\'t do it here. Go away.“';
+    'If you can\'t even remember the continuation for the immortal game itself then just copy it from the chess manual and write it down in the notation book.\nCertainly don\'t do it here. Go away.';
 String sGargAbout =
-    '“It\'s a fancy place. It used to have plenty patrons. These days it only sees the infrequent square or a knob come by.\nI thought we would reach capacity with this whole immortality business but it seems like it\'s the opposite!“';
+    'It\'s a fancy place. It used to have plenty patrons. These days it only sees the infrequent square or a knob come by.\nI thought we would reach capacity with this whole immortality business but it seems like it\'s the opposite!';
 String sGargMap =
-    '“Okay. You can have this map.“%The gargoyle hands you a map. You put it in your pocket.';
-String sGargKoolAid = '“I do have way too much KoolAid. Here you go.“';
+    'Okay. You can have this map.%The gargoyle hands you a map. You put it in your pocket.';
+String sGargKoolAid = 'I do have way too much KoolAid. Here you go.';
 String sKoolAidYesNo =
-    'The gargoyle hands you some KoolAid. You put it in your pocket.%“Oh you already have some KoolAid there. I suppose you would\'nt be here if you\'d have gulped it...“';
-String sGargGreeting = '“What?“';
+    'The gargoyle hands you some KoolAid. You put it in your pocket.%Oh you already have some KoolAid there. I suppose you would\'nt be here if you\'d have gulped it...';
+String sGargGreeting = 'What?';
 String sGargTurnItOff = 'Really dude. Please turn that off.';
-String sGargTurnItOffAgain =
-    '“Don\'t make me ask you again. Turn off the flash“';
+String sGargTurnItOffAgain = 'Don\'t make me ask you again. Turn off the flash';
 String sGargLastChance =
-    '“If you say no one more time that is it!“\n“I will end our friendship on the saddest terms.“\n“Choose wisely.“';
-String sGargNotFriends = '“We\'re not friends. I have nothing to say to you.“';
+    'If you say no one more time that is it!\nI will end our friendship on the saddest terms.\nChoose wisely.';
+String sGargNotFriends = 'We\'re not friends. I have nothing to say to you.';
 
 /*            ChessManual           */
 List<Map> ChessManualEntries = [
