@@ -6,7 +6,7 @@ Brain brain = Brain(firstRoom);
 
 void main() {
   InitialSeed();
-  ControlScheme();
+
   brain.Intro();
   brain.EnterRoom(firstRoom);
 

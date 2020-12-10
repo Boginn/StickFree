@@ -13,5 +13,6 @@ class FamiliarVoice extends NPC {
   }
 
   void say(String line) => print('The voice says: “$line“');
-  void sayRightOrWrong(bool foo) => foo ? Prompt(sFamRight) : print(sFamWrong);
+  void sayRightOrWrong(bool foo) =>
+      foo ? Prompt('“sFamRight“') : print('“sFamWrong“');
 }

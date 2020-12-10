@@ -16,6 +16,15 @@ class Brain {
   Room currentRoom;
   Brain(this.currentRoom);
 
+  void Intro() {
+    print(sTitleScreen);
+    // Ask for control scheme
+    ControlScheme();
+    Prompt('You wake up to the sound of a familiar voice in your head.');
+    stick.famVoice.say('$sFamIntroduceA\n$sFamIntroduceB\n$sFamIntroduceC');
+    Prompt('');
+  }
+
   void StickInterface(List<String> controls) {
     String input =
         stdin.readLineSync(encoding: Encoding.getByName('utf-8')).toLowerCase();
@@ -65,13 +74,6 @@ class Brain {
 
     DisplayOptions();
     stick.DisplayScore();
-  }
-
-  void Intro() {
-    print(sTitleScreen);
-    Prompt('You wake up to the sound of a familiar voice in your head.');
-    stick.famVoice.say('$sFamIntroduceA\n$sFamIntroduceB\n$sFamIntroduceC');
-    Prompt('');
   }
 
   void Win() {

@@ -2,8 +2,8 @@
 String sTitleScreen = "\n"
     "                                                        "
     "\n         |                           *@     @(    @@"
-    "\n         |                            @@     @@   (@"
-    "\n         |                        @@@, @@@@@@@@@ %@@"
+    "\n         |     STICK                  @@     @@   (@"
+    "\n         |        FREE            @@@, @@@@@@@@@ %@@"
     "\n         O                        (@(  @     @@@@"
     "\n                                   @(  @     @."
     "\n       @%%%%@                    @@      @ @."
@@ -19,7 +19,8 @@ String sTitleScreen = "\n"
     "\n        @  @               (@@@@@@@@@@@@@@@@@@@@@@  ,,@@%"
     "\n       @@   @@             (((((((((((((((((((((()@("
     "\n                           (@@@@@@@@@@@@@@@@@@@@@@"
-    "\n                                                  ";
+    "\n                                              "
+    "\n  (c) Finnbogi Jökull Pétursson               ";
 
 void DisplayOptionsDefault() {
   print('\t[L] Look Around\t\t\t[O] Open');
@@ -57,6 +58,22 @@ void DisplayMap() {
       "\n     |   +¯¯¯¯¯¯¯¯¯¯¯+   |"
       "\n     +--A------I------D--+");
 }
+
+/*            Actions           */
+String sPickUp = 'What would you like to pick up?';
+String sPickUpNothing = 'You don\'t see anything worth picking up.';
+String sOpen = 'What would you like to open?';
+String sInventory = 'You check your pockets. Select something to examine it.';
+String sCommit =
+    'You know how to play chess but you can\'t possibly memorize more than one line at a time.\nCommit the continuation to memory?';
+
+String sCantSee = 'You can\'t see what you\'re doing.';
+String sCantExit = 'It\'s further down than you can see. Better not jump.';
+String sFire = 'You can\'t, there\'s a fire!';
+
+String sYouWin =
+    'You escaped, you are stick free. The voice is gone from your head.';
+String sGameOver = 'Game Over.';
 
 /*            Items           */
 /*Examine*/
@@ -118,22 +135,6 @@ String sKnobCorrect = 'You fit the knob on the door. Seems to work.';
 
 String sUseClothCorrect =
     'You wrap the cloth around the burning hot doorknob.\nYou should be able to open it now.';
-
-/*            Actions           */
-String sPickUp = 'What would you like to pick up?';
-String sPickUpNothing = 'You don\'t see anything worth picking up.';
-String sOpen = 'What would you like to open?';
-String sInventory = 'You check your pockets. Select something to examine it.';
-String sCommit =
-    'You know how to play chess but you can\'t possibly memorize more than one line at a time.\nCommit the continuation to memory?';
-
-String sCantSee = 'You can\'t see what you\'re doing.';
-String sCantExit = 'It\'s further down than you can see. Better not jump.';
-String sFire = 'You can\'t, there\'s a fire!';
-
-String sYouWin =
-    'You escaped, you are stick free. The voice is gone from your head.';
-String sGameOver = 'Game Over.';
 
 /*            FirstRoom           */
 Map firstRoomDescriptions = {
@@ -245,9 +246,9 @@ Map chessRoomDescriptions = {
       'It\'s the hall with the over sized chess board. The echo is overbearing.',
 };
 
-/*            NPC Voicelines           */
+/*            NPC Voice lines           */
 // => NPC says: “ “
-// Familiar Voicee
+// Familiar Voice
 String sFamRight = 'Yes, become IMMORTAL!';
 String sFamWrong = 'Wrong, MORTAL!';
 String sFamIntroduceA = 'Why are you running? Don\'t you want to be immortal?.';

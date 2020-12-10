@@ -21,6 +21,8 @@ if connecting to other rooms make sure to add any references to those rooms.
 
 /**/
 
+The highest recorded score: 1896
+
 **Walkthrough**:<br>
 Look Around<br>
 Pick up the RubberChicken<br>
@@ -97,3 +99,4 @@ Go to the balcony with the ChessManual in your inventory and the flashlight turn
 Look Around once or twice and you will wake the Gargoyle.<br>
 He will tell you what to do and provide a map for lots of bonus points.<br>
 Careful though if you're going for max points, antagonizing the gargoyle subtracts points as well as turning off the flashlight.
+

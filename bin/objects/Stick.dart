@@ -28,6 +28,10 @@ class Stick {
       balconyRoom.isInvestigated &&
       cRoom == balconyRoom);
 
+  void DisplayScore() {
+    print('\t\t{( SCORE [$stickScore] )}');
+  }
+
   void Investigate(Room cRoom) {
     // is Look Around to the user
 
@@ -251,7 +255,7 @@ class Stick {
       UseItemFurther(
           cRoom, Items.ChessManual, 'Read the index?', ReadChessManual);
     } else if (inventory[input] == Items.Key) {
-      if (cRoom.whichRoom == Rooms.LivingRoom && cRoom.isLocked) {
+      if (cRoom.whichRoom == Rooms.LivingRoom && balconyRoom.isLocked) {
         print(sKeyCorrect);
         //Score
         stickScore += 20;
@@ -303,8 +307,9 @@ class Stick {
       UseItemFurther(cRoom, Items.Map, 'Look at the map?', UseMap);
     } else if (inventory[input] == Items.Cloth) {
       if (cRoom.whichRoom == Rooms.SecondRoom) {
-        // Unlock
         print(sUseClothCorrect);
+        inventory.remove(Items.Cloth);
+        // Unlock
         cRoom.availableRooms[cRoom.availableRooms.indexOf(smokeRoom)].isLocked =
             false;
         // Score
@@ -326,7 +331,7 @@ class Stick {
         : print('You put the ${item.toString().split('.').last} back.');
   }
 
-  void DrinkTheKoolAid() {
+  void DrinkTheKoolAid(Room cRoom) {
     print(sUseKoolAid);
     DisplayScore();
     Prompt(sGameOver);
@@ -349,13 +354,13 @@ class Stick {
 
     smokeRoom.isFire = false;
     inventory.remove(Items.KoolAid);
-    cRoom.toggleInvestigated();
+    cRoom.isInvestigated = true;
     Prompt(sUseKoolAidCorrect);
     // Score
     stickScore += 100;
   }
 
-  void UseMap() {
+  void UseMap(Room cRoom) {
     // Score
     stickScore += 666;
     DisplayMap();
@@ -447,13 +452,5 @@ class Stick {
     }
     DisplayOptions();
     DisplayScore();
-  }
-
-  void ScoreKeeper(int score) {
-    stickScore += score;
-  }
-
-  void DisplayScore() {
-    print('\t\t{(o SCORE [$stickScore] o)}');
   }
 }
