@@ -112,7 +112,7 @@ class Brain {
       bool answer = getYesNo();
 
       if (answer) {
-        //Score
+        // Score
         stick.stickScore -= 20;
         stick.isFlashlight = false;
         print(sUseFlashlightOff);

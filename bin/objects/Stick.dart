@@ -5,6 +5,7 @@ import 'FamiliarVoice.dart';
 
 class Stick {
   // Keep Score
+  int extraLife = 1;
   int stickScore = 0;
   bool win = false;
   // Familiar Voice
@@ -209,7 +210,7 @@ class Stick {
       if (cRoom.whichRoom == Rooms.Lobby && cRoom.isInvestigated) {
         print(sUseRubberChickenCorrect);
         //Score
-        stickScore += 50;
+        stickScore += 25;
         win = true;
       } else {
         print(sNoUse);
@@ -279,7 +280,7 @@ class Stick {
         cRoom.availableRooms[cRoom.availableRooms.indexOf(chessRoom)].isLocked =
             false;
         // Score
-        stickScore += 50;
+        stickScore += 30;
       } else {
         print(sNoUse);
       }
@@ -341,7 +342,10 @@ class Stick {
     print(sUseKoolAid);
     DisplayScore();
     Prompt(sGameOver);
-    Exit(false);
+    if (extraLife > 0) {
+      Prompt(sExtraLife);
+      extraLife--;
+    }
   }
 
   void PourTheKoolAid(Room cRoom) {
@@ -378,10 +382,10 @@ class Stick {
       // Display Index
       int i = 1;
       for (Map entry in ChessManualEntries) {
-        print('\t[0$i] ${entry['Index']}');
+        print('\t[$i] ${entry['Index']}');
         i++;
       }
-      print('[0$i] Put the book away.');
+      print('[$i] Put the book away.');
       // Get input
       int input = getIntAnswer(ChessManualEntries.length + 1) - 1;
       if (input == i - 1) {
@@ -478,6 +482,8 @@ class Stick {
     } else if (inventory[input] == Items.Map) {
       print(sExamineUseMap);
       UseItemFurther(cRoom, Items.Map, 'Look at the map?', UseMap);
+    } else if (inventory[input] == Items.Cloth) {
+      print(sExamineCloth);
     }
     DisplayOptions();
     DisplayScore();

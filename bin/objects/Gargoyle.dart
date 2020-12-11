@@ -7,14 +7,8 @@ class Gargoyle extends NPC {
   bool isAwake;
   int asks;
 
-  Gargoyle(
-      {List<String> voiceLines,
-      bool isFriendly,
-      int flashlightChances,
-      bool isAwake,
-      int asks})
-      : super(voiceLines, isFriendly) {
-    // this.voiceLines = gargoyleVoiceLines;
+  Gargoyle({bool isFriendly, int flashlightChances, bool isAwake, int asks})
+      : super(isFriendly) {
     this.isFriendly = true;
     this.flashlightChances = 4;
     this.isAwake = false;

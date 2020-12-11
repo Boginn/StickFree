@@ -74,6 +74,9 @@ String sFire = 'You can\'t, there\'s a fire!';
 String sYouWin =
     'You escaped, you are stick free. The voice is gone from your head.';
 String sGameOver = 'Game Over.';
+String sExtraLife =
+    'Losing all your progress can be frustrating. You are not immortal but you\'ve been granted an extra life should you decide to take it.\nBe careful now, you won\'t get another chance.';
+String sAcceptRes = 'Accept resurrection?';
 
 /*            Items           */
 /*Examine*/
@@ -92,6 +95,8 @@ String sExamineKnob = 'Looks like a doorknob that fell off.';
 String sExamineNotationBook =
     'It is a high quality book used to jot down chess games. A pen is handily attached.\nThe first two lines read: 20. Ke2 Na6, 21. Nxg7+ Kd8. The rest of the book is empty.';
 String sExamineUseMap = 'It\'s a map of this place.';
+String sExamineCloth =
+    'It\'s a piece of cloth. Could keep the heat at bay during hard times.';
 
 /*Use*/
 String sNoUse = 'That has no possible use here!';
@@ -120,7 +125,7 @@ String sUseNotationBook =
 String sUseNotationBookAlmostCorrect =
     'As you begin to write down the continuation from your memory, the voice in your head bellows loudly:%Whatever you wrote in the book is erased.';
 String sUseNotationBookCorrect =
-    'As you write down the continuation from your memory, the pieces on the over sized chess board move in correspondence and the voice in your head speaks:% With the final move annotated the chess board disappears, as if it was a hologram, leaving a circle circle on the floor.';
+    'As you write down the continuation from your memory, the pieces on the over sized chess board move in correspondence and the voice in your head speaks:% With the final move annotated the chess board disappears, as if it was a hologram, leaving a circle shaped circle on the floor.';
 
 String sUseRubberChickenCorrect =
     'You slap the rubber chicken with a pulley in the middle on the wire and slide to safety.';

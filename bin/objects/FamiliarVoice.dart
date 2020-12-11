@@ -5,14 +5,11 @@ import '../functions.dart';
 class FamiliarVoice extends NPC {
   /**/
 
-  FamiliarVoice(
-      {List<String> voiceLines, bool isFriendly, int flashlightChances})
-      : super(voiceLines, isFriendly) {
-    // this.voiceLines = familiarVoiceLines;
+  FamiliarVoice({bool isFriendly, int flashlightChances}) : super(isFriendly) {
     this.isFriendly = false;
   }
 
   void say(String line) => print('The voice says: “$line“');
   void sayRightOrWrong(bool foo) =>
-      foo ? Prompt('“sFamRight“') : print('“sFamWrong“');
+      foo ? Prompt('“$sFamRight“') : Prompt('“$sFamWrong“');
 }

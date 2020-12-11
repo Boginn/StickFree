@@ -21,7 +21,8 @@ if connecting to other rooms make sure to add any references to those rooms.
 
 /**/
 
-The highest recorded score: 1896
+The highest recorded score: 1851
+1851 was the year the Immortal Game was played.
 
 **Walkthrough**:<br>
 Look Around<br>
