@@ -162,6 +162,8 @@ class Stick {
       if (cRoom.visibleItems.isEmpty) {
         print(sPickUpNothing);
       } else {
+        // Remove Cancel item
+        inventory.remove(Items.Cancel);
         // Display options
         print(sPickUp);
         for (int i = 0; i < cRoom.visibleItems.length; i++) {
@@ -182,6 +184,10 @@ class Stick {
   }
 
   void Use(Room cRoom) {
+    // Append cancel option if needed
+    if (!inventory.contains(Items.Cancel)) {
+      inventory.add(Items.Cancel);
+    }
     // Display inventory
     for (int i = 0; i < inventory.length; i++) {
       print('\t[${i + 1}] ' + inventory[i].toString().split('.').last);
@@ -405,8 +411,27 @@ class Stick {
     inventory.remove(item);
     // Update description
     sOpenLobbyLocked =
-        'You\'re fairly sure you just need to put the rest of the shapes in place';
-    if (isTriangle && isSquare && isCircle && lobbyRoom.isLocked) {
+        'You\'re fairly sure you just need to put the rest of the shapes in place.';
+    if (isTriangle && !isSquare && !isCircle) {
+      sOpenLobbyLocked = sOpenLobbyLocked +
+          '\nThe triangle shape is in there but the slots for a circle and a square are empty.';
+    } else if (!isTriangle && isSquare && !isCircle) {
+      sOpenLobbyLocked = sOpenLobbyLocked +
+          '\nThe square shape is in there but the slots for a circle and a triangle are empty.';
+    } else if (!isTriangle && !isSquare && isCircle) {
+      sOpenLobbyLocked = sOpenLobbyLocked +
+          '\nThe circle shape is in there but the slots for a square and a triangle are empty.';
+    } else if (!isTriangle && isSquare && isCircle) {
+      sOpenLobbyLocked =
+          sOpenLobbyLocked + '\nThe triangle shaped slot is still empty.';
+    } else if (isTriangle && !isSquare && isCircle) {
+      sOpenLobbyLocked =
+          sOpenLobbyLocked + '\nThe square shaped slot is still empty.';
+    } else if (isTriangle && isSquare && !isCircle) {
+      sOpenLobbyLocked =
+          sOpenLobbyLocked + '\nThe circle shaped slot is still empty.';
+    } else if (isTriangle && isSquare && isCircle && lobbyRoom.isLocked) {
+      // Unlock
       lobbyRoom.isLocked = false;
       // Score
       stickScore += 50;
@@ -415,6 +440,10 @@ class Stick {
   }
 
   void Examine(Room cRoom) {
+    // Append cancel option if needed
+    if (!inventory.contains(Items.Cancel)) {
+      inventory.add(Items.Cancel);
+    }
     // Display inventory
     print(sInventory);
     int i = 0;

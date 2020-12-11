@@ -37,7 +37,7 @@ Look Around<br>
 Pick up the Flashlight<br>
 
 Open back<br>
-Open back to the first room<br>
+Open door to the room you woke up in<br>
 
 Open right<br>
 Look Around<br>
@@ -61,7 +61,7 @@ Pick up Cloth<br>
 
 Open back<br>
 Open door to the living<br>
-Open door to the first room<br>
+Open door to the room you woke up in<br>
 Open door to a similar room<br>
 Use Cloth<br>
 
@@ -71,7 +71,7 @@ Look Around<br>
 Pick up NotationBook<br>
 
 Open back<br>
-Open door to the first room<br>
+Open door to the room you woke up in<br>
 Open door to the living room<br>
 Open door to the dark room<br>
 

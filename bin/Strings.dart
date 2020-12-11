@@ -107,7 +107,7 @@ String sIsFlashlight =
 String sUseFlashlightOn = 'You turn on the flashlight. It works. Sweet.';
 String sUseFlashlightOff = 'You turn the flashlight off. Pity.';
 
-String sUseKey = 'The key does\'nt fit in any lock here.';
+String sUseKey = 'The key doesn\'t fit in any lock here.';
 String sKeyCorrect = 'The key fits in the balcony door. It unlocks.';
 
 String sUseChessManual =
@@ -210,7 +210,7 @@ Map darkRoomDescriptions = {
       'Since the flashlight is on you can see that you are in a hallway. There is a door at the end of the hallway.',
   'Investigated': 'There\'s nothing in this inky black room except the doors.',
 };
-String sOpenChessRoomLocked = 'The door does\'nt even have a doorknob.';
+String sOpenChessRoomLocked = 'The door doesn\'t even have a doorknob.';
 
 /*            BalconyRoom           */
 Map balconyRoomDescriptions = {

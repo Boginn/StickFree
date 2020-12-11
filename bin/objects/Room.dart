@@ -49,6 +49,7 @@ class Room {
 
   void toggleInvestigated() {
     revealCloudedItems();
+
     isInvestigated = true;
   }
 
@@ -109,6 +110,7 @@ enum Rooms {
 }
 
 enum Items {
+  Cancel,
   KoolAid,
   RubberChicken,
   Triangle,
